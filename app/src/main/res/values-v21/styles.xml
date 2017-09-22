@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme.ExploreEx" parent="AppTheme.NoActionBar">
+        <!--<item name="android:windowExitTransition">@transition/explode</item>-->
+        <!--<item name="android:windowEnterAnimation">@transition/explode</item>-->
+        <!--<item name="android:windowReenterTransition">@transition/explode</item>-->
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+
+    </style>
+</resources>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_rootview"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false"
+    android:orientation="vertical">
+
+
+
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="true"
+        android:clipChildren="false"
+        tools:openDrawer="start">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipChildren="false"
+            >
+
+
+
+
+            <!-- <View
+                 android:layout_width="match_parent"
+                 android:layout_height="0.5dp"
+                 android:layout_above="@id/layout_home_bottom"
+                 android:background="@color/menu_gray" />-->
+
+            <FrameLayout
+                android:id="@+id/content_main2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                />
+            <View
+                android:layout_below="@id/content_main2"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/menu_gray"/>
+
+            <!--<include
+
+                android:id="@+id/layout_home_bottom"
+                android:clipChildren="false"
+                layout="@layout/layout_bottom" />-->
+
+        </RelativeLayout>
+
+        <include
+            layout="@layout/layout_menu_drawer"
+            />
+
+    </android.support.v4.widget.DrawerLayout>
+    <include
+        layout="@layout/layout_apptoolbar"
+        />
+</RelativeLayout>

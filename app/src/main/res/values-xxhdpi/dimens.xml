@@ -1,0 +1,52 @@
+<resources>
+
+    <!-- ——————————————————————————长度大小—————————————————————————— -->
+    <!-- 标题头高度 -->
+    <dimen name="title_height">50dp</dimen>
+    <!-- 间隔线小高度 -->
+    <dimen name="line_small_height">0.5dp</dimen>
+    <!-- 间隔线高度 -->
+    <dimen name="line_heignt">1dp</dimen>
+    <!-- 首页底部按钮图标长度 -->
+    <dimen name="main_buttom_length">25dp</dimen>
+    <!-- 二级页面首标题栏居上距离 -->
+    <dimen name="margin_top">30dp</dimen>
+    <!-- 二级页面居左和居右距离 -->
+    <dimen name="margin_left_right">20dp</dimen>
+    <!-- 二级导航小图片宽高 -->
+    <dimen name="second_pic_size">25dp</dimen>
+    <!-- 键盘总高度 -->
+    <dimen name="keyboaer_hieght">250dp</dimen>
+    <!-- 左右抖动幅度 -->
+    <dimen name="shake_left_and_right">5dp</dimen>
+    <!-- 相机距离头部高度 -->
+    <dimen name="capture_margin_top">100dp</dimen>
+    <!-- 中央字体距上下高度 -->
+    <dimen name="center_text_margit">25dp</dimen>
+
+    <dimen name="activity_title_margin">30dp</dimen>
+
+    <!-- 标题头高度 -->
+    <dimen name="title_height_trans">70dp</dimen>
+
+    <dimen name="title_height_trans_padding">20dp</dimen>
+    <!-- ——————————————————————————字体大小—————————————————————————— -->
+    <!-- 首页底部字体大小 -->
+    <dimen name="main_buttom_textSize">15sp</dimen>
+    <!-- 首页底部字体大小 -->
+    <dimen name="new_main_buttom_textSize">12sp</dimen>
+    <!-- 标题头左侧返回字体大小 -->
+    <dimen name="title_back_textSize">16sp</dimen>
+    <!-- 标题头字体大小 -->
+    <dimen name="title_textSize">20sp</dimen>
+    <!-- 登录界面一号字体大小 -->
+    <dimen name="login_first_textSize">18sp</dimen>
+    <!-- 二维码扫描下方字体大小 -->
+    <dimen name="capture_buttom_textSize">14sp</dimen>
+    <!-- 键盘数字字体大小 -->
+    <dimen name="numeric_keyboard_number_textSize">25sp</dimen>
+    <!-- 收款记录最小字体 -->
+    <dimen name="gathering_least_textSize">12sp</dimen>
+    <string name="animate_textsize">120</string>
+    <string name="animate_textsize_small">100</string>
+</resources>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.youth.banner.Banner
+        android:id="@+id/banner2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:default_image="@mipmap/loading2"
+        app:indicator_width="8dp"
+        app:indicator_height="8dp"
+        app:indicator_margin="5dp"
+        app:indicator_drawable_unselected="@drawable/unselected_radius"
+        app:indicator_drawable_selected="@drawable/selected_radius"/>
+    <RelativeLayout
+        android:id="@+id/layout_img_title"
+        android:layout_width="match_parent"
+        android:visibility="invisible"
+
+        android:gravity="top"
+        android:layout_height="@dimen/title_height"
+        android:background="@color/menu_blue"
+        >
+
+        <LinearLayout
+            android:id="@+id/title_lin_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/menu_blue"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="visible" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginLeft="10dp"
+                android:src="@mipmap/title_back" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="15dp"
+                android:visibility="invisible"
+                android:text="@string/title_fanhui"
+                android:textColor="@color/white"
+                android:textSize="@dimen/title_back_textSize" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:text="@string/app_name"
+            android:gravity="center"
+            android:layout_marginLeft="10dp"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/title_textSize" />
+        <TextView
+            android:id="@+id/title_righttext"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="123"
+            android:padding="10dp"
+            android:gravity="center_vertical"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="12dp"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+
+            />
+    </RelativeLayout>
+    <ImageView
+        android:id="@+id/img_test"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+
+        />
+    <RelativeLayout
+        android:id="@+id/layout_img_action"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:visibility="invisible"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="#773b3737"
+        >
+        <TextView
+            android:id="@+id/tv_test"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:padding="12dp"
+            android:textColor="@color/white"
+            android:text="测试展示"/>
+
+        <ImageView
+            android:id="@+id/icon_upload"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="5dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_cloud_upload_black_24dp"
+            />
+    </RelativeLayout>
+</RelativeLayout>

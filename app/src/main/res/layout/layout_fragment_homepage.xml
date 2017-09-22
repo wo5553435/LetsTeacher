@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:orientation="vertical">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@color/menu_blue"
+            />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_list_home"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/menu_blue"
+            android:padding="5dp">
+
+        </android.support.v7.widget.RecyclerView>
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/img_test"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/animatieimg_search"
+            android:visibility="gone"
+            app:srcCompat="@drawable/animatieimg_search" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <FrameLayout
+                android:id="@+id/home_sceneroot"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white">
+            </FrameLayout>
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fb_home_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="40dp"
+                android:src="@drawable/icon_savefile"
+                android:visibility="invisible"
+                app:backgroundTint="@color/menu_green"
+                app:layout_scrollFlags="scroll|enterAlways|snap"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                app:rippleColor="#FF049AED"
+                />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

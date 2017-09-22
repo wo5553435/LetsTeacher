@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@color/menu_backroudgrey"
+    >
+    <CheckBox
+        android:id="@+id/check_file_select"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:padding="5dp"
+        android:visibility="gone"
+        android:src="@drawable/bmob_update_button_check_selector"/>
+    <ImageView
+        android:id="@+id/img_file_avater"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/icon_dark_save"
+        />
+    <TextView
+        android:id="@+id/tv_file_name"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="15sp"
+        android:gravity="center_vertical"
+        android:text="未知"
+        android:paddingLeft="12dp"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:textColor="@color/menu_text_black"
+        />
+</LinearLayout>

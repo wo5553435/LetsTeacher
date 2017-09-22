@@ -1,0 +1,68 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'org.greenrobot.greendao'
+apply plugin: 'kotlin-android-extensions'
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.1"
+    defaultConfig {
+        applicationId "com.example.sinner.letsteacher"
+        minSdkVersion 21
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    greendao {
+        schemaVersion 1
+        targetGenDir 'src/main/java'
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    //bmob-sdk：Bmob的android sdk包，包含了Bmob的数据存储、文件等服务，以下是最新的bmob-sdk:
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile project(':library')
+    compile project(':banner')
+    compile project(path: ':xrecyclerview')
+    compile project(':photopicker')
+    compile project(':photoview')
+    compile project(':iconswitch')
+    compile 'com.jakewharton:butterknife:8.4.0'
+    compile 'com.android.support:appcompat-v7:25.1.0'
+    compile 'de.hdodenhof:circleimageview:2.0.0'
+    compile 'com.github.1em0nsOft:LemonBubble4Android:1.0.0'
+    compile 'com.android.support:design:25.1.0'
+    compile 'com.android.support:support-v13:25.1.0'
+    compile 'org.greenrobot:greendao:3.1.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.1'
+    testCompile 'junit:junit:4.12'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+//    compile 'com.trello.rxlifecycle2:rxlifecycle:2.2.0'
+    compile 'com.android.support:multidex:1.0.1'
+//    compile 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.0'
+//    compile 'com.trello.rxlifecycle2:rxlifecycle-navi:2.2.0'
+//    // 支持Kotlin语法的RxLifecycle基础库
+//    compile 'com.trello.rxlifecycle2:rxlifecycle-kotlin:2.2.0'
+// 支持Kotlin语法的Android库
+//    compile 'com.trello.rxlifecycle2:rxlifecycle-android-lifecycle-kotlin:2.2.0'
+}
+repositories {
+    mavenCentral()
+}

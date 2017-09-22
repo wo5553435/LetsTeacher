@@ -1,0 +1,21 @@
+<resources>
+
+    <dimen name="activity_horizontal_margin">64dp</dimen>
+
+    <!-- 键盘总高度 -->
+    <dimen name="keyboaer_hieght">200dp</dimen>
+
+    <!-- 相机距离头部高度 -->
+    <dimen name="capture_margin_top">50dp</dimen>
+    
+     <!-- 中央字体距上下高度 -->
+    <dimen name="center_text_margit">10dp</dimen>
+
+    <string name="animate_textsize">50</string>
+    <string name="animate_textsize_small">40</string>
+    <dimen name="activity_title_margin">10dp</dimen>
+
+    <!-- 标题头高度 -->
+    <dimen name="title_height_trans">50dp</dimen>
+    <dimen name="title_height_trans_padding">10dp</dimen>
+</resources>

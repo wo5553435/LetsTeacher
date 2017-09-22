@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="250dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_bg"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:text="@string/dialog_wenxintishi"
+        android:textColor="@color/deep"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="60dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:padding="12dp"
+        android:textColor="@color/medium"
+        android:textSize="12sp" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="10dp"
+        android:background="#D8D8D8" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/bt_cancel"
+            android:layout_width="0dip"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:background="@drawable/dialog_cancel"
+            android:text="@string/dialog_quxiao"
+            android:textColor="@color/title_bg" />
+
+        <View
+            android:id="@+id/view_line"
+            android:layout_width="0.5dp"
+            android:layout_height="fill_parent"
+            android:background="#D8D8D8" />
+
+        <Button
+            android:id="@+id/bt_ok"
+            android:layout_width="0dip"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:background="@drawable/dialog_ok"
+            android:text="@string/dialog_queren"
+            android:textColor="@color/title_bg" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="primary">#FF03A9F4</color>
+    <color name="primary_dark">#FF0288D1</color>
+    <color name="status_bar_color">@color/primary_dark</color>
+    <color name="menu_green_wechat">#88C840</color>
+    <color name="menu_backroudgrey">#F8F8F8</color>
+    <color name="menu_content_pure">#EBEBEB</color>
+    <color name="menu_orange">#EA5504</color>
+    <color name="menu_orange_pure">#FF6826</color>
+    <color name="menu_orange_p">#FFA133</color>
+    <color name="menu_red">#C3272B</color>
+    <color name="menu_red_pure">#FF7F81</color>
+    <color name="menu_text_pure">#999999</color>
+    <color name="menu_gray_pure">#F4F4F4</color>
+    <color name="menu_gray_deep">#F8F8F8</color>
+    <color name="menu_text_black">#323232</color>
+
+    <!--背景分割线选中颜色-->
+    <color name="menu_green">#36D4C8</color>
+    <color name="menu_blue">#38B7FE</color>
+    <color name="menu_blue_pure">#80C5EC</color>
+    <color name="menu_blue1">#66C7F0</color>
+    <color name="menu_blue2">#88D8D7</color>
+    <color name="menu_gray">#D7D7D7</color>
+    <color name="menu_gray_C">#e7e7e7</color>
+    <color name="bg_brown">#CC6600</color>
+    <color name="menu_brown">#F4CA87</color>
+    <color name="bg_yellow">#FFCC00</color>
+    <color name="bg_green_pure">#33CC66</color>
+    <color name="shadow">#cc222222</color>
+    <color name="Red_800">#ffb93221</color>
+    <color name="menu_purple">#8067E7</color>
+    <color name="men_purple_d">#8273F0</color>
+    <color name="menu_purple_pure">#F4F2FD</color>
+    <color name="menu_black_p1">#1B1B40</color>
+    <color name="menu_black_p2">#1F1F45</color>
+    <color name="menu_black_p3">#262646</color>
+    <color name="menu_black_p4">#686C98</color>
+    <color name="menu_black_p5">#323232</color>
+    <color name="menu_black_p6">#1B1B1B</color>
+    <!-- 透明色 -->
+    <color name="transparent">#00000000</color>
+    <!-- 半透明 -->
+    <color name="half_transparent">#90000000</color>
+    <!-- 黑色 -->
+    <color name="black">#000000</color>
+    <!-- 白色 -->
+    <color name="white">#FFFFFF</color>
+    <!-- 深白色 -->
+    <color name="white_deep">#fafafa</color>
+
+    <!-- 标题头颜色|首页底部字体按下颜色 -->
+    <color name="title_bg">#1CB295</color>
+
+    <color name="title_bg_deep">#19957d</color>
+    <!-- 首页底部字体松开颜色 -->
+    <color name="main_buttom_text_up">#7E7F81</color>
+    <!-- 间隔线颜色 -->
+    <color name="line_color">#F3F3F3</color>
+    <!-- 主背景颜色 -->
+    <color name="main_bg">#F5F5F5</color>
+    <!-- 首页分类红色小圆点 -->
+    <color name="main_type_red_color">#F5734B</color>
+    <!-- 收款二维码灰色背景 -->
+    <color name="gathering_gary_bg">#B3C0BE</color>
+    <!-- 收款成功页面金额字体颜色 -->
+    <color name="gathering_success_money_color">#F16D0E</color>
+    <!-- 深 -->
+    <color name="deep">#333</color>
+    <!-- 中 -->
+    <color name="medium">#666</color>
+    <!-- 深 -->
+    <color name="simple">#999</color>
+    <!-- 日期选择器弹出框颜色 -->
+    <color name="alertdialog_line">#c6c6c6</color>
+    <color name="actionsheet_blue">#037BFF</color>
+    <!-- 返回键按下效果 -->
+    <color name="back_down_color">#80000000</color>
+    <!-- 蓝色 -->
+    <color name="color_blue">#0ec6dc</color>
+    <!-- 深蓝色 -->
+    <color name="color_deep_blue">#0aa8bb</color>
+    <!-- 数字键盘间隔线颜色 -->
+    <color name="numeric_keyboard_line_color">#DADADA</color>
+    <!-- 键盘按钮按下颜色 -->
+    <color name="numeric_keyboard_down_color">#e6e6e6</color>
+
+    <color name="tips_color1">#BEE2FF</color>
+    <color name="tips_color2">#8DE6F1</color>
+    <color name="tips_color3">#EC94BB</color>
+    <color name="tips_color4">#FBE752</color>
+    <color name="tips_color5">#7FD8EE</color>
+    <color name="tips_color6">#7EACF9</color>
+
+</resources>
