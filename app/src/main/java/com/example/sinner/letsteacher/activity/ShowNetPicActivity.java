@@ -5,8 +5,12 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.view.ViewCompat;
+import android.support.v4.view.ViewPropertyAnimatorListener;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -90,14 +94,15 @@ public class ShowNetPicActivity extends BasicActivity {
     @BindView(R.id.fab)
     FloatingActionButton fab;
 
+
     FilesearchedAdapter adapter;
     ArrayList<String> data;
-    List<ImageVo> data_file=new ArrayList<>();
+    List<ImageVo> data_file = new ArrayList<>();
     AnimationSet animationSet;
     Animation closeanimation;
     String groupid;
-    boolean hasmore=true;
-    int currentpage=1;
+    boolean hasmore = true;
+    int currentpage = 1;
 
     @Override
     protected int getContentLayout() {
@@ -106,18 +111,72 @@ public class ShowNetPicActivity extends BasicActivity {
 
     @Override
     protected void initGui() {
-        tv_title.setText(StringTools.getNotNullStr(getIntent().getStringExtra("name"),"图记"));
+        tv_title.setText(StringTools.INSTANCE.getNotNullStr(getIntent().getStringExtra("name"), "图记"));
         tv_right.setVisibility(View.GONE);
         tv_right.setText("操作");
     }
 
     @Override
     protected void initData() {
-       // initTransition();
-        groupid=getIntent().getStringExtra("id");
+        // initTransition();
+        groupid = getIntent().getStringExtra("id");
         initAnimationSet();
+        //initSRLayout();
         initRv();
-        SearchFile();
+        SearchFile(true);
+    }
+
+
+    Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+
+            switch (msg.what) {
+                case 0://进入刷新状态
+                   // srlayout.setRefreshing(true);
+                    showFab(false);
+                    break;
+                case 1://结束刷新状态
+                    //srlayout.setRefreshing(false);
+                    rv_filedata.refreshComplete();
+                    showFab(true);
+                    break;
+                default:
+                    break;
+            }
+            super.handleMessage(msg);
+        }
+    };
+
+    /**
+     * 展示或者隐藏上传按钮
+     *
+     * @param isshow
+     */
+    private void showFab(final boolean isshow) {
+        float end = isshow ? 1.0f : 0.0f;
+        ViewCompat.animate(fab).scaleX(end).scaleY(end).setDuration(500).setInterpolator(new FastOutSlowInInterpolator())
+                .setListener(new ViewPropertyAnimatorListener() {
+                    @Override
+                    public void onAnimationStart(View view) {
+                        if (isshow) {
+                            view.setVisibility(View.VISIBLE);
+                        }
+                    }
+
+                    @Override
+                    public void onAnimationEnd(View view) {
+                        if (!isshow) {
+                            view.setVisibility(View.GONE);
+                        }
+                    }
+
+                    @Override
+                    public void onAnimationCancel(View view) {
+
+                    }
+                })
+                .start();
     }
 
     /**
@@ -130,8 +189,8 @@ public class ShowNetPicActivity extends BasicActivity {
 
     }
 
-    private Transition initContentEnterTransition(){
-        Transition transition= TransitionInflater.from(this).inflateTransition(R.transition.slide_and_fade);
+    private Transition initContentEnterTransition() {
+        Transition transition = TransitionInflater.from(this).inflateTransition(R.transition.slide_and_fade);
         transition.addListener(new Transition.TransitionListener() {
             @Override
             public void onTransitionStart(Transition transition) {
@@ -162,9 +221,9 @@ public class ShowNetPicActivity extends BasicActivity {
         return transition;
     }
 
-    private Transition initSharedElementEnterTransition(){
+    private Transition initSharedElementEnterTransition() {
 
-        final Transition sharedTransition=new TransitionSet().addTransition(new ChangeBounds().setDuration(500));
+        final Transition sharedTransition = new TransitionSet().addTransition(new ChangeBounds().setDuration(500));
         sharedTransition.addListener(new Transition.TransitionListener() {
             @Override
             public void onTransitionStart(Transition transition) {
@@ -194,23 +253,23 @@ public class ShowNetPicActivity extends BasicActivity {
         return sharedTransition;
     }
 
-    @OnClick({R.id.fab,R.id.title_righttext})
-    public void OnClickListener(View view){
-        switch (view.getId()){
+    @OnClick({R.id.fab, R.id.title_righttext})
+    public void OnClickListener(View view) {
+        switch (view.getId()) {
             case R.id.fab:
-                if (groupid != null&&groupid.length()!=0) {
+                if (groupid != null && groupid.length() != 0) {
                     Intent intent = new Intent(activity, PhotoPickerActivity.class);
 //                    intent.putExtra("id",groupid);
-                    Bundle bundle=new Bundle();
-                    bundle.putBoolean(PhotoPickerActivity.IS_MULTI_SELECT,true);
-                    bundle.putInt(PhotoPickerActivity.MAX_SELECT_SIZE,10);
+                    Bundle bundle = new Bundle();
+                    bundle.putBoolean(PhotoPickerActivity.IS_MULTI_SELECT, true);
+                    bundle.putInt(PhotoPickerActivity.MAX_SELECT_SIZE, 10);
 
                     intent.putExtras(bundle);
                     startActivityForResult(intent, 1001);
                 }
                 break;
             case R.id.title_righttext:
-                if(adapter.getSelect()!=null&&adapter.getSelect().size()!=0){
+                if (adapter.getSelect() != null && adapter.getSelect().size() != 0) {
                     ShowAction();
                 }
 //                BmobFile.deleteBatch(new String[]{"http://bmob-cdn-13614.b0.upaiyun.com/2017/09/05/b61b8b6aceb4490bad946b620bd8e151.jpg"}, new DeleteBatchListener() {
@@ -237,11 +296,11 @@ public class ShowNetPicActivity extends BasicActivity {
      * 展现操作菜单
      */
     private void ShowAction() {
-        final ActionDialog dialog=new ActionDialog(activity,R.style.DialogStyle);
+        final ActionDialog dialog = new ActionDialog(activity, R.style.DialogStyle);
         dialog.SetListener(new ActionDialog.OnActionClick() {
             @Override
             public void OnItemClick(int position) {
-                switch (position){
+                switch (position) {
                     case 1:// 批量下载
                         break;
                     case 2://复制
@@ -254,7 +313,7 @@ public class ShowNetPicActivity extends BasicActivity {
                         break;
                     case 4://删除
                         dialog.dismiss();
-                        final MyDialog dialog1=new MyDialog(activity,R.style.DialogStyle);
+                        final MyDialog dialog1 = new MyDialog(activity, R.style.DialogStyle);
                         dialog1.setTextContent("确认删除所选项？");
                         dialog1.setOnlyOk(false);
                         dialog1.setCanceledOnTouchOutside(true);
@@ -281,11 +340,11 @@ public class ShowNetPicActivity extends BasicActivity {
     /**
      * 获取
      */
-    public void getNetFileDirs(final int type){
-        showProgressDialog();
-        HashMap<String,String> limit=new HashMap<>();
-        limit.put("groupid",groupid);
-        BmobUtil.getInstance().SearchData(FileBean.class, null,limit, new BmobQueryListener<FileBean>() {
+    public void getNetFileDirs(final int type) {
+        showPDialog();
+        HashMap<String, String> limit = new HashMap<>();
+        limit.put("groupid", groupid);
+        BmobUtil.getInstance().SearchData(FileBean.class, null, limit, new BmobQueryListener<FileBean>() {
 
             @Override
             public void OnSuccess(FileBean object) {
@@ -294,29 +353,29 @@ public class ShowNetPicActivity extends BasicActivity {
 
             @Override
             public void OnSuccess(List<FileBean> objects) {
-                Logs.e("objects", "---"+objects.size());
-                hideProgressDialog();
-                if(objects!=null) ShowNetFileDirs(objects,type);
+                Logs.e("objects", "---" + objects.size());
+                hidePDialog();
+                if (objects != null) ShowNetFileDirs(objects, type);
             }
 
             @Override
             public void OnFail(String code, String error) {
-                hideProgressDialog();
-                SuperToastUtil.getInstance(activity).showToast("查找错误!"+error);
+                hidePDialog();
+                SuperToastUtil.getInstance(activity).showToast("查找错误!" + error);
             }
         });
     }
 
-    public void ShowNetFileDirs(final List<FileBean> data, final int type){
-        final NetFileDirsDialog dialog=new NetFileDirsDialog(activity,data,R.style.DialogStyle);
+    public void ShowNetFileDirs(final List<FileBean> data, final int type) {
+        final NetFileDirsDialog dialog = new NetFileDirsDialog(activity, data, R.style.DialogStyle);
         dialog.setListener(new NetFileDirsDialog.ActionClick() {
             @Override
             public void onItemClick(int position) {
-                Logs.e("点击的是","");
-                String groupids=data.get(position).getGroupid();
-                if(type==1){//复制到
+                Logs.e("点击的是", "");
+                String groupids = data.get(position).getGroupid();
+                if (type == 1) {//复制到
                     Ctrl_V(groupids);
-                }else if(type==2){//剪切到
+                } else if (type == 2) {//剪切到
                     UpdateFilesDirs(groupids);
                 }
                 dialog.dismiss();
@@ -329,35 +388,35 @@ public class ShowNetPicActivity extends BasicActivity {
     /**
      * 复制 简单来说就是批量添加
      */
-    public void Ctrl_V(String groupid){
-        List<Integer> index=adapter.getSelect();
-        List<BmobObject> files=new ArrayList<>();
+    public void Ctrl_V(String groupid) {
+        List<Integer> index = adapter.getSelect();
+        List<BmobObject> files = new ArrayList<>();
         for (int i = 0; i < index.size(); i++) {
-            ImageVo img=new ImageVo();
+            ImageVo img = new ImageVo();
             img.setObjectId(data_file.get(index.get(i)).getObjectId());
             img.setGroup(groupid);
             files.add(img);
         }
-        showProgressDialog();
+        showPDialog();
         BmobUtil.getInstance().InsertBatch(false, files, new BaseBmobMultListener() {
             @Override
             public void onSuccess() {
-                hideProgressDialog();
+                hidePDialog();
                 SuperToastUtil.getInstance(activity).showToast("操作成功!");
                 Refresh();
             }
 
             @Override
             public void onFailure(String errorcode, String errormsg) {
-                hideProgressDialog();
-                SuperToastUtil.getInstance(activity).showToast("操作失败!错误码:"+errorcode);
+                hidePDialog();
+                SuperToastUtil.getInstance(activity).showToast("操作失败!错误码:" + errorcode);
                 Refresh();
             }
 
             @Override
             public void onSuccess(List<Integer> errorcount) {
-                hideProgressDialog();
-                SuperToastUtil.getInstance(activity).showToast("操作冲突!有"+errorcount.size()+"项位未操作");
+                hidePDialog();
+                SuperToastUtil.getInstance(activity).showToast("操作冲突!有" + errorcount.size() + "项位未操作");
                 Refresh();
             }
         });
@@ -366,36 +425,37 @@ public class ShowNetPicActivity extends BasicActivity {
 
     /**
      * 剪切 简单来说就是更新数据
+     *
      * @param groupid
      */
-    public void UpdateFilesDirs(String groupid){
-        List<Integer> index=adapter.getSelect();
-        List<BmobObject> files=new ArrayList<>();
+    public void UpdateFilesDirs(String groupid) {
+        List<Integer> index = adapter.getSelect();
+        List<BmobObject> files = new ArrayList<>();
         for (int i = 0; i < index.size(); i++) {
-            ImageVo img=new ImageVo();
+            ImageVo img = new ImageVo();
             img.setObjectId(data_file.get(index.get(i)).getObjectId());
             img.setGroup(groupid);
             files.add(img);
         }
-        showProgressDialog();
+        showPDialog();
         BmobUtil.getInstance().UpdataObjects(files, new BaseBmobMultListener() {
             @Override
             public void onSuccess() {
-                hideProgressDialog();
+                hidePDialog();
                 SuperToastUtil.getInstance(activity).showToast("操作成功");
                 Refresh();
             }
 
             @Override
             public void onFailure(String errorcode, String errormsg) {
-                hideProgressDialog();
-                SuperToastUtil.getInstance(activity).showToast("操作失败"+errormsg);
+                hidePDialog();
+                SuperToastUtil.getInstance(activity).showToast("操作失败" + errormsg);
                 Refresh();
             }
 
             @Override
             public void onSuccess(List<Integer> errorcount) {
-                hideProgressDialog();
+                hidePDialog();
                 Refresh();
             }
         });
@@ -404,7 +464,7 @@ public class ShowNetPicActivity extends BasicActivity {
     /**
      * 将
      */
-    private void UpdateUser(){
+    private void UpdateUser() {
 
     }
 
@@ -412,33 +472,34 @@ public class ShowNetPicActivity extends BasicActivity {
     /**
      * 删除修改文件表中
      */
-    private void DeleteUserimgData(){
+    private void DeleteUserimgData() {
 
-        final List<BmobObject> selects=new ArrayList<>();
-        final List<String> selecturls=new ArrayList<>();
-        final List<Integer> indexs=adapter.getSelect();
+        final List<BmobObject> selects = new ArrayList<>();
+        final List<String> selecturls = new ArrayList<>();
+        final List<Integer> indexs = adapter.getSelect();
         for (int i = 0; i < indexs.size(); i++) {
-            Logs.e("adapter select",""+indexs.get(i));
-            Logs.e("将要删除的对象","id"+data_file.get(indexs.get(i)).getObjectId());
-            ImageVo temp=new ImageVo();  temp.setObjectId(data_file.get(indexs.get(i)).getObjectId());
+            Logs.e("adapter select", "" + indexs.get(i));
+            Logs.e("将要删除的对象", "id" + data_file.get(indexs.get(i)).getObjectId());
+            ImageVo temp = new ImageVo();
+            temp.setObjectId(data_file.get(indexs.get(i)).getObjectId());
             selecturls.add(data_file.get(indexs.get(i)).getFile_url());
             selects.add(temp);
         }
         BmobUtil.getInstance().DeleteObjects(selects, new BaseBmobMultListener() {
             @Override
             public void onSuccess() {
-                Logs.e("全清成功","--需要删除文件");
+                Logs.e("全清成功", "--需要删除文件");
                 DeleteFiles(selecturls);
             }
 
             @Override
             public void onFailure(String errorcode, String errormsg) {
-                Logs.e("删除出了一些问题"+errorcode,"---"+errormsg);
+                Logs.e("删除出了一些问题" + errorcode, "---" + errormsg);
             }
 
             @Override
             public void onSuccess(List<Integer> errorcount) {
-                Logs.e("部分出现了问题",""+errorcount.toArray(new Integer[]{}).toString());
+                Logs.e("部分出现了问题", "" + errorcount.toArray(new Integer[]{}).toString());
 
             }
         });
@@ -446,23 +507,24 @@ public class ShowNetPicActivity extends BasicActivity {
 
     /**
      * 删除指定选中文件
+     *
      * @param urls
      */
     private void DeleteFiles(List<String> urls) {
-        String [] fileurls= urls.toArray(new String[urls.size()]);
-        showProgressDialog();
+        String[] fileurls = urls.toArray(new String[urls.size()]);
+        showPDialog();
         BmobUtil.getInstance().DeleteFiles(fileurls, new BmobFileListener() {
             @Override
             public void OnSuccess(String filepath) {
-                hideProgressDialog();
+                hidePDialog();
                 SuperToastUtil.getInstance(activity).showToast("删除文件成功");
                 Refresh();
             }
 
             @Override
             public void OnFail(String code, String message) {
-                hideProgressDialog();
-                Logs.e("code"+code,message);
+                hidePDialog();
+                Logs.e("code" + code, message);
                 SuperToastUtil.getInstance(activity).showToast("操作成功");
                 //SuperToastUtil.getInstance(activity).showToast(code+message);
                 Refresh();
@@ -477,8 +539,11 @@ public class ShowNetPicActivity extends BasicActivity {
             //单选
             //String result = data.getStringExtra(PhotoPickerActivity.SELECT_RESULTS);
             //多选
-            List<String> results=data.getStringArrayListExtra(PhotoPickerActivity.SELECT_RESULTS_ARRAY);
-            if(results==null) {SuperToastUtil.getInstance(activity).showToast("未选取内容~!");return;}
+            List<String> results = data.getStringArrayListExtra(PhotoPickerActivity.SELECT_RESULTS_ARRAY);
+            if (results == null) {
+                SuperToastUtil.getInstance(activity).showToast("未选取内容~!");
+                return;
+            }
             UploadFiles(results);
 
         }
@@ -487,96 +552,98 @@ public class ShowNetPicActivity extends BasicActivity {
 
     /**
      * 上传所选所有文件
+     *
      * @param results
      */
     private void UploadFiles(List<String> results) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("groupid",groupid);
+        params.put("groupid", groupid);
         params.put("userid", LoginUserEntity.userid);
-        showProgressDialog();
+        showPDialog();
         BmobUtil.getInstance().UploadFiles(new BmobMulitFileListener() {
             @Override
             public void OnSuccess(List<BmobFile> files, List<String> urls, int failcount) {
-                Logs.e("完成上传","准备更新数据");
-                UpdataUserData(files,urls,failcount);
+                Logs.e("完成上传", "准备更新数据");
+                UpdataUserData(files, urls, failcount);
             }
 
             @Override
             public void OnProgress(int current, int total) {
-                Logs.e("current"+current,"total"+total);
+                Logs.e("current" + current, "total" + total);
             }
 
             @Override
             public void OnFail(String code, String message) {
-                hideProgressDialog();
-                SuperToastUtil.getInstance(activity).showToast("上传失败"+message);
+                hidePDialog();
+                SuperToastUtil.getInstance(activity).showToast("上传失败" + message);
             }
-        },  results.toArray(new String[]{}));
+        }, results.toArray(new String[]{}));
     }
 
 
     /**
      * 更新用户数据
+     *
      * @param files
      * @param urls
      * @param failcount
      */
     private void UpdataUserData(List<BmobFile> files, List<String> urls, int failcount) {
-     //   SuperToastUtil.getInstance(activity).showToast("上传完成"+str);
-        showProgressDialog();
-        List<BmobObject> addfile=new ArrayList<>();
+        //   SuperToastUtil.getInstance(activity).showToast("上传完成"+str);
+        showPDialog();
+        List<BmobObject> addfile = new ArrayList<>();
         for (int i = 0; i < files.size(); i++) {
-            ImageVo imageVo=new ImageVo(LoginUserEntity.userid,files.get(i).getUrl(),groupid);
+            ImageVo imageVo = new ImageVo(LoginUserEntity.userid, files.get(i).getUrl(), groupid);
             addfile.add(imageVo);
         }
 
         BmobUtil.getInstance().InsertBatch(false, addfile, new BaseBmobMultListener() {
             @Override
             public void onSuccess() {
-                hideProgressDialog();
+                hidePDialog();
                 SuperToastUtil.getInstance(activity).showToast("上传完成");
                 Refresh();
             }
 
             @Override
             public void onFailure(String errorcode, String errormsg) {
-                hideProgressDialog();
-                SuperToastUtil.getInstance(activity).showToast("更新文档失败"+errormsg);
+                hidePDialog();
+                SuperToastUtil.getInstance(activity).showToast("更新文档失败" + errormsg);
                 Refresh();
             }
 
             @Override
             public void onSuccess(List<Integer> errorcount) {
-                hideProgressDialog();
-                SuperToastUtil.getInstance(activity).showToast("上传完成"+errorcount.toArray()+"上传出现问题");
+                hidePDialog();
+                SuperToastUtil.getInstance(activity).showToast("上传完成" + errorcount.toArray() + "上传出现问题");
                 Refresh();
             }
         });
     }
 
 
-    private void Refresh(){
-        currentpage=1;
-        hasmore=true;
+    private void Refresh() {
+        currentpage = 1;
+        hasmore = true;
         data_file.clear();
         adapter.notifyDataSetChanged();
 
-        if(data!=null) data.clear();
+        if (data != null) data.clear();
         rv_filedata.ResetStatue(true);
         adapter.SetSelectMode(false);
-        SearchFile();
+        SearchFile(true);
     }
 
     /**
      * 从网路中查找文件
      */
-    private void SearchFile() {
-        showProgress();
-        HashMap<String,String> params=new HashMap<>();
-        params.put("groupid",groupid);
+    private void SearchFile(final boolean isclear) {
+        showPDialog();
+        HashMap<String, String> params = new HashMap<>();
+        params.put("groupid", groupid);
         params.put("userid", LoginUserEntity.userid);
 
-        BmobUtil.getInstance().SearchDataByLimit(ImageVo.class, params,currentpage, new BmobQueryListener<ImageVo>(){
+        BmobUtil.getInstance().SearchDataByLimit(ImageVo.class, params, currentpage, new BmobQueryListener<ImageVo>() {
             @Override
             public void OnSuccess(ImageVo object) {
 
@@ -584,22 +651,23 @@ public class ShowNetPicActivity extends BasicActivity {
 
             @Override
             public void OnSuccess(List<ImageVo> objects) {
-                if(objects.size()>0){
+                if (objects.size() > 0) {
                     currentpage++;
                     data_file.addAll(objects);
-                    ConvertData(objects);
-                }else{
-                    hasmore=false;
-                    closeProgress();
+                    ConvertData(isclear,objects);
+                } else {
+                    hasmore = false;
+                    hidePDialog();
                     SuperToastUtil.getInstance(activity).showToast("无更多内容!");
                 }
             }
 
             @Override
             public void OnFail(String code, String error) {
-                closeProgress();
-                Logs.e("code"+code,error);
-                SuperToastUtil.getInstance(activity).showToast("查找错误"+error);
+                hidePDialog();
+                Logs.e("code" + code, error);
+                mHandler.sendEmptyMessage(1);
+                SuperToastUtil.getInstance(activity).showToast("查找错误" + error);
             }
         });
 
@@ -607,38 +675,43 @@ public class ShowNetPicActivity extends BasicActivity {
 
     /**
      * 转化数据
+     *
      * @param objects
      */
-    private void ConvertData(List<ImageVo> objects) {
+    private void ConvertData(final boolean isclear, List<ImageVo> objects) {
         Observable.just(objects).map(new Func1<List<ImageVo>, ArrayList<String>>() {
             @Override
             public ArrayList<String> call(List<ImageVo> imageVos) {
-                ArrayList<String> data=new ArrayList<String>();
+                ArrayList<String> data = new ArrayList<String>();
                 for (int i = 0; i < imageVos.size(); i++) {
                     data.add(imageVos.get(i).getFile_url());
                 }
                 return data;
             }
         }).observeOn(AndroidSchedulers.mainThread())
-        .subscribeOn(Schedulers.io())
-        .subscribe(new Subscriber<ArrayList<String>>() {
-            @Override
-            public void onCompleted() {
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Subscriber<ArrayList<String>>() {
+                    @Override
+                    public void onCompleted() {
 
-            }
+                    }
 
-            @Override
-            public void onError(Throwable throwable) {
+                    @Override
+                    public void onError(Throwable throwable) {
 
-            }
+                    }
 
-            @Override
-            public void onNext(ArrayList<String> strings) {
-                closeProgress();
-                data.addAll(strings);
-                adapter.notifyDataSetChanged();
-            }
-        });
+                    @Override
+                    public void onNext(ArrayList<String> strings) {
+                       //     closeProgress();
+                        hidePDialog();
+                        if(isclear)
+                            data.clear();
+                        mHandler.sendEmptyMessage(1);
+                        data.addAll(strings);
+                        adapter.notifyDataSetChanged();
+                    }
+                });
     }
 
     @Override
@@ -652,35 +725,38 @@ public class ShowNetPicActivity extends BasicActivity {
     }
 
     private void initRv() {
-        data=new ArrayList<>();
+
+
+        data = new ArrayList<>();
         rv_filedata.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
         rv_filedata.setLaodingMoreProgressStyle(ProgressStyle.BallRotate);
         rv_filedata.setArrowImageView(R.drawable.iconfont_downgrey);
         rv_filedata.setPullRefreshEnabled(false);
-        rv_filedata.setLayoutManager(new LinearLayoutManager(activity,LinearLayoutManager.VERTICAL,false));
-        adapter= new FilesearchedAdapter(data, new FilesearchedAdapter.OnEventClick() {
+        rv_filedata.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
+        adapter = new FilesearchedAdapter(data, new FilesearchedAdapter.OnEventClick() {
             @Override
             public void onItemClick(View view, int position) {
-                if(adapter.isSelectMode()){
-                   // adapter.notifyItemChanged(position-1,1);
-                }else{
-                    ShowPicDetail(position-1);
+                if (adapter.isSelectMode()) {
+                    // adapter.notifyItemChanged(position-1,1);
+                } else {
+                    ShowPicDetail(position - 1);
                 }
             }
 
             @Override
             public void onItemLongClick(View view, int position) {
-                if(!adapter.isSelectMode())
+                if (!adapter.isSelectMode())
                     adapter.SetSelectMode(true);
-                adapter.notifyItemChanged(position,1);
-                tv_right.setVisibility(adapter.isSelectMode()?View.VISIBLE:View.INVISIBLE);
+                adapter.notifyItemChanged(position, 1);
+                tv_right.setVisibility(adapter.isSelectMode() ? View.VISIBLE : View.INVISIBLE);
             }
         });
 
         rv_filedata.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
-
+                mHandler.sendEmptyMessage(0);
+                Refresh();
             }
 
             @Override
@@ -689,7 +765,7 @@ public class ShowNetPicActivity extends BasicActivity {
                     public void run() {
                         rv_filedata.loadMoreComplete();
                         if (hasmore) {
-                            SearchFile();
+                            SearchFile(false);
                             rv_filedata.refreshComplete();
                         } else {
                             // 已无更多内容
@@ -704,11 +780,11 @@ public class ShowNetPicActivity extends BasicActivity {
         rv_filedata.setAdapter(adapter);
     }
 
-    public void ShowPicDetail(int position){
-        Intent intent=new Intent(activity,ImgDetailActivity.class);
-        intent.putStringArrayListExtra("images",data);
-        intent.putExtra("download","true");
-        intent.putExtra("point",position);
+    public void ShowPicDetail(int position) {
+        Intent intent = new Intent(activity, ImgDetailActivity.class);
+        intent.putStringArrayListExtra("images", data);
+        intent.putExtra("download", "true");
+        intent.putExtra("point", position);
         startActivity(intent);
     }
 
@@ -716,11 +792,11 @@ public class ShowNetPicActivity extends BasicActivity {
     @Override
     public void onBackPressed() {
 
-        if(adapter.isSelectMode()){
+        if (adapter.isSelectMode()) {
             adapter.SetSelectMode(false);
             tv_right.setVisibility(View.GONE);
-        }else
-        super.onBackPressed();
+        } else
+            super.onBackPressed();
     }
 
     private void initAnimationSet() {
@@ -765,15 +841,15 @@ public class ShowNetPicActivity extends BasicActivity {
      * 当
      */
     private void showProgress() {
-        if(img_progress!=null) {
-        img_progress.setVisibility(View.VISIBLE);
-        //TranslateAnimation animation=new TranslateAnimation(0,20,0,20);
-        img_progress.startAnimation(animationSet);
+        if (img_progress != null) {
+            img_progress.setVisibility(View.VISIBLE);
+            //TranslateAnimation animation=new TranslateAnimation(0,20,0,20);
+            img_progress.startAnimation(animationSet);
         }
     }
 
     private void closeProgress() {
-        if(img_progress!=null) {
+        if (img_progress != null) {
             img_progress.clearAnimation();
             img_progress.setAnimation(closeanimation);
         }

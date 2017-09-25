@@ -31,6 +31,7 @@ import com.example.sinner.letsteacher.utils.Logs;
 import com.example.sinner.letsteacher.utils.SpUtil;
 import com.example.sinner.letsteacher.utils.SuperToastUtil;
 import com.example.sinner.letsteacher.utils.file.FileUtils;
+import com.github.johnpersano.supertoasts.SuperToast;
 
 import java.util.HashMap;
 import java.util.List;
@@ -211,6 +212,7 @@ public class HomeActivity extends BasicActivity {
 //        super.onBackPressed();
         long currenttime=System.currentTimeMillis();
         if(currenttime-lasttime<=1500){
+            SuperToast.cancelAllSuperToasts();
             finish();
         }else{
             lasttime=currenttime;

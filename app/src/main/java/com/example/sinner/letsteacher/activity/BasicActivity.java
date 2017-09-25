@@ -20,6 +20,7 @@ import android.view.WindowManager;
 import com.example.sinner.letsteacher.R;
 import com.example.sinner.letsteacher.basic.WaitingDialog;
 import com.example.sinner.letsteacher.utils.Logs;
+import com.pigcms.library.view.dialog.ProgressWaitDialog;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -31,6 +32,7 @@ import butterknife.Unbinder;
 public abstract  class BasicActivity extends AppCompatActivity {
     protected Activity activity;
     protected WaitingDialog dialog;
+    protected ProgressWaitDialog pdialog;
     private String appname="";
     private Unbinder unbinder;
     @Override
@@ -201,6 +203,14 @@ public abstract  class BasicActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    public void showPDialog(){
+        if(pdialog==null){ pdialog=new ProgressWaitDialog(this,R.style.WaitingDialogStyle);
+            pdialog.setCanceledOnTouchOutside(false);
+            pdialog.setCancelable(true);
+        }
+        pdialog.show();
+    }
+
     /**
      * 隐藏等待层
      */
@@ -210,6 +220,14 @@ public abstract  class BasicActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * 隐藏等待层
+     */
+    public void hidePDialog() {
+        if (pdialog != null && pdialog.isShowing()) {
+            pdialog.dismiss();
+        }
+    }
 
     /**
      * 判断等待层是否开启状态

@@ -103,10 +103,10 @@
             <me.zhanghai.android.materialprogressbar.MaterialProgressBar
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:alpha="0"
                 android:indeterminate="true"
                 android:id="@+id/login_wait_dialog"
                 android:layout_centerInParent="true"
+                android:visibility="gone"
                 app:mpb_indeterminateTint="@color/white"
                 style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal"
                 android:layout_centerHorizontal="true"
@@ -119,9 +119,24 @@
                 android:background="@color/transparent"
                 android:layout_centerInParent="true"
                 android:text="登  录"
+
                 android:textColor="@color/white"
                 android:textSize="18sp" />
-
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/img_login_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="gone"
+                app:srcCompat="@drawable/animate_right_over"/>
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/img_login_error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="gone"
+                app:srcCompat="@drawable/ic_error"
+                />
         </RelativeLayout>
 
 

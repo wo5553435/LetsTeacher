@@ -13,7 +13,6 @@ import com.example.sinner.letsteacher.entity.FileBean;
 import com.example.sinner.letsteacher.utils.StringTools;
 
 import java.util.List;
-
 /**
  * Created by sinner on 2017-06-27.
  * mail: wo5553435@163.com
@@ -22,8 +21,10 @@ import java.util.List;
 
 public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHolder> {
 
+
     private List<FileBean> data;
     private OnEventClick onEventClick;
+
 
     public FileListAdapter(List<FileBean> data, OnEventClick onEventClick) {
         this.data = data;
@@ -44,7 +45,7 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
         if (data != null && position != data.size()) {
             holder.tv_name.setText(data.get(position).getName());
             holder.tv_name.setTextSize(14);
-            if (StringTools.getNotNullStr(data.get(position).getColorids()).length() != 0) {
+            if (StringTools.INSTANCE.getNotNullStr(data.get(position).getColorids()).length() != 0) {
                 GradientDrawable drawable = (GradientDrawable) holder.tv_name.getBackground();
                 drawable.setColor(Color.parseColor(data.get(position).getColorids()));
                 drawable.setStroke(1, Color.WHITE);

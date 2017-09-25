@@ -101,6 +101,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     ImageView tv_tip4;
     @BindView(R.id.fb_home_save)
     FloatingActionButton fab;
+    private View addview;
 
 
     View specialView;
@@ -179,20 +180,24 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                     if (specialView == null) specialView = view;
                     if (currentselect != -1)
                         layut_root.findViewById(R.id.root).setVisibility(View.VISIBLE);
-                    switchScene(view, !isScene);
+                    if (addview == null) addview = view;
+                    switchScene(addview, !isScene);
                     // startActivity(new Intent(activity, TestActivity.class));
 //                    ShapeFragment fragment=new ShapeFragment();
 //                    fragment.show(getActivity().getSupportFragmentManager(), "searchdialog");
                 } else {//打开操作
                     currentselect = position;
-                    if (!isScene) switchScene(view, false);
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            gotoDetail(position, view);
-                        }
-                    }, 400);
-
+                    if (isScene && addview != null) {
+                        switchScene(addview, !isScene);
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                gotoDetail(position, view);
+                            }
+                        }, 500);
+                    } else {
+                        gotoDetail(position, view);
+                    }
                 }
             }
         });
@@ -264,13 +269,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         if (flag) {
             initStartAnimation();
             circularReveal.start();
-            float x=0,y=0;
-            int sunwidth=rv_list.getMeasuredWidth();
-            x=sunwidth-view.getX()-view.getMeasuredWidth()+30;
-            y=view.getHeight()/2-20;
-            Logs.e("x"+view.getX(),"y"+view.getY());
-            Logs.e("sx"+sunwidth+"---x"+x,"sy"+y);
-            Logs.e("w"+view.getMeasuredWidth(),"h"+view.getMeasuredHeight());
+            float x = 0, y = 0;
+            int sunwidth = rv_list.getMeasuredWidth();
+            x = sunwidth - view.getX() - view.getMeasuredWidth() + 30;
+            y = view.getHeight() / 2 - 20;
+            Logs.e("x" + view.getX(), "y" + view.getY());
+            Logs.e("sx" + sunwidth + "---x" + x, "sy" + y);
+            Logs.e("w" + view.getMeasuredWidth(), "h" + view.getMeasuredHeight());
             ViewCompat.animate(view).rotation(135f).scaleX(0.5f).scaleY(0.5f).setDuration(700).setInterpolator(new AnticipateOvershootInterpolator()).translationX(x).translationY(y).start();
         } else {
             initEndAnimation();
@@ -485,8 +490,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         Logs.e("---id", "" + bean.getObjectId());
         bean.setName(tv_groupname.getText().toString());
         bean.setRemark(tv_groupback.getText().toString());
-        bean.setColorids( AndroidUtils.Companion.getRandomColor());
-        bean.setGroupid(""+System.currentTimeMillis());
+        bean.setColorids(AndroidUtils.Companion.getRandomColor());
+        bean.setGroupid("" + System.currentTimeMillis());
         bean.setUserid(LoginUserEntity.userid);
 //        bean.setGroupid(bean.getObjectId());
         bean.setDelete(false);
@@ -546,7 +551,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         String remark = tv_groupback.getText().toString();
         Logs.e("name", "" + name);
         Logs.e("back", "" + remark);
-        if (StringTools.getNotNullStr(name).length() != 0/*&&StringTools.getNotNullStr(remark).length()!=0*/) {
+        if (StringTools.INSTANCE.getNotNullStr(name).length() != 0/*&&StringTools.getNotNullStr(remark).length()!=0*/) {
             CheckCount();
         } else {
 

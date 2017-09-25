@@ -167,11 +167,11 @@ public class RegisterActivity extends BasicActivity {
         String pass=edPassword.getText().toString();
         String repass=edRepassword.getText().toString();
         String phone=edPhone.getText().toString();
-        if(StringTools.isEmpty(username)) {SuperToastUtil.getInstance(activity).showToast(1,"用户名不能为空哦");return false;}
-        if(StringTools.isEmpty(pass)){SuperToastUtil.getInstance(activity).showToast(1,"密码要设置哦");
+        if(StringTools.INSTANCE.isEmpty(username)) {SuperToastUtil.getInstance(activity).showToast(1,"用户名不能为空哦");return false;}
+        if(StringTools.INSTANCE.isEmpty(pass)){SuperToastUtil.getInstance(activity).showToast(1,"密码要设置哦");
         return false;
         }
-        if(StringTools.isEmpty(repass)){
+        if(StringTools.INSTANCE.isEmpty(repass)){
             SuperToastUtil.getInstance(activity).showToast(1,"忘记确认密码了么？");
             return false;
         }
@@ -182,7 +182,7 @@ public class RegisterActivity extends BasicActivity {
         }
 
 
-        if(!StringTools.isPhoneNumber(phone)){
+        if(!StringTools.INSTANCE.isPhoneNumber(phone)){
             SuperToastUtil.getInstance(activity).showToast(1,"这个手机号码挺奇怪的~");
             return false;
         }

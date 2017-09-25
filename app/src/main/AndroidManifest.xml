@@ -63,7 +63,8 @@
         <activity android:name=".activity.LoginAc" />
         <activity android:name=".activity.RegisterAc" />
         <activity android:name=".activity.TestActivity" />
-        <activity android:name=".activity.clearboom.ClearBoomActivity"></activity>
+        <activity android:name=".activity.clearboom.ClearBoomActivity" />
+        <activity android:name=".AdviceActivity"></activity>
     </application>
 
 </manifest>

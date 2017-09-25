@@ -44,6 +44,13 @@ dependencies {
     compile project(':photopicker')
     compile project(':photoview')
     compile project(':iconswitch')
+    //    compile 'com.trello.rxlifecycle2:rxlifecycle:2.2.0'
+    //    compile 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.0'
+//    compile 'com.trello.rxlifecycle2:rxlifecycle-navi:2.2.0'
+//    // 支持Kotlin语法的RxLifecycle基础库
+//    compile 'com.trello.rxlifecycle2:rxlifecycle-kotlin:2.2.0'
+// 支持Kotlin语法的Android库
+//    compile 'com.trello.rxlifecycle2:rxlifecycle-android-lifecycle-kotlin:2.2.0'
     compile 'com.jakewharton:butterknife:8.4.0'
     compile 'com.android.support:appcompat-v7:25.1.0'
     compile 'de.hdodenhof:circleimageview:2.0.0'
@@ -52,16 +59,9 @@ dependencies {
     compile 'com.android.support:support-v13:25.1.0'
     compile 'org.greenrobot:greendao:3.1.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.1'
+    compile 'com.android.support:multidex:1.0.1'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
-//    compile 'com.trello.rxlifecycle2:rxlifecycle:2.2.0'
-    compile 'com.android.support:multidex:1.0.1'
-//    compile 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.0'
-//    compile 'com.trello.rxlifecycle2:rxlifecycle-navi:2.2.0'
-//    // 支持Kotlin语法的RxLifecycle基础库
-//    compile 'com.trello.rxlifecycle2:rxlifecycle-kotlin:2.2.0'
-// 支持Kotlin语法的Android库
-//    compile 'com.trello.rxlifecycle2:rxlifecycle-android-lifecycle-kotlin:2.2.0'
 }
 repositories {
     mavenCentral()

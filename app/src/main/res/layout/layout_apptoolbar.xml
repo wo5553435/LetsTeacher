@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="16dp"
-            android:visibility="visible"
+            android:visibility="gone"
             />
     </RelativeLayout>
 </android.support.v7.widget.Toolbar>
