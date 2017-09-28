@@ -66,7 +66,7 @@
             android:id="@+id/title_righttext"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="123"
+            android:text=""
             android:padding="10dp"
             android:gravity="center_vertical"
             android:layout_alignParentRight="true"
@@ -80,9 +80,9 @@
         android:id="@+id/img_test"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_centerInParent="true"
 
-        />
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
     <RelativeLayout
         android:id="@+id/layout_img_action"
         android:layout_width="match_parent"
@@ -100,7 +100,7 @@
             android:gravity="center_vertical"
             android:padding="12dp"
             android:textColor="@color/white"
-            android:text="测试展示"/>
+            android:text="分享至QQ"/>
 
         <ImageView
             android:id="@+id/icon_upload"

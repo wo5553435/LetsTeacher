@@ -167,4 +167,16 @@ public abstract class StringTools {
 		}
 		return temptext;
 	}
+
+	public static String getNotNullStr(String str){
+		if(str==null||str=="null"||str==""||str.trim().length()==0)
+			return "";
+		return str;
+	}
+
+	public static String getNotNullStr(String str,String back){
+		if(str==null||str=="null"||str==""||str.trim().length()==0)
+			return back;
+		return str;
+	}
 }

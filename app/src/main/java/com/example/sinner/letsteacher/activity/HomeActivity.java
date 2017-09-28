@@ -1,13 +1,8 @@
 package com.example.sinner.letsteacher.activity;
 
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.content.Intent;
-import android.graphics.drawable.Animatable;
 import android.graphics.drawable.AnimatedVectorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.os.Environment;
 import android.os.Handler;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewCompat;
@@ -17,24 +12,14 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.example.sinner.letsteacher.R;
-import com.example.sinner.letsteacher.fragments.ColorSelectFragment;
 import com.example.sinner.letsteacher.fragments.HomeFragment;
-import com.example.sinner.letsteacher.utils.Logs;
-import com.example.sinner.letsteacher.utils.SpUtil;
 import com.example.sinner.letsteacher.utils.SuperToastUtil;
-import com.example.sinner.letsteacher.utils.file.FileUtils;
 import com.github.johnpersano.supertoasts.SuperToast;
-
-import java.util.HashMap;
-import java.util.List;
 
 import butterknife.BindView;
 
@@ -55,6 +40,9 @@ public class HomeActivity extends BasicActivity {
 
     @BindView(R.id.layout_minefragment_signout)
     RelativeLayout layout_signout;
+
+    @BindView(R.id.layout_minefragment_advice)
+    RelativeLayout layout_advice;
 
     HomeFragment homePageFragment;
     ActionBarDrawerToggle mDrawerToggle;
@@ -94,6 +82,8 @@ public class HomeActivity extends BasicActivity {
 //                return true;
 //            }
 //        });
+
+
     }
 
     @Override
@@ -128,6 +118,18 @@ public class HomeActivity extends BasicActivity {
                 Signout();
             }
         });
+        layout_advice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                GotoAdvice();
+            }
+
+
+        });
+    }
+
+    private void GotoAdvice() {
+        startActivity(new Intent(activity, AdviceActivity.class));
     }
 
     /**

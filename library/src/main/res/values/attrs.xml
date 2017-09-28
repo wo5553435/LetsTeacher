@@ -32,5 +32,11 @@
         <attr name="text_Size" format="integer"/>
         <attr name="max" format="integer"/>
         <attr name="minum" format="integer"/>
+        <attr name="drawableheight" format="integer"/>
+        <attr name="leftdrawable" format="reference"/>
+        <attr name="rightdrawable" format="reference"/>
+        <attr name="edit" format="boolean"/>
+        <attr name="maxWidth" format="integer"/>
+        <attr name="useicon" format="boolean"/>
     </declare-styleable>
 </resources>

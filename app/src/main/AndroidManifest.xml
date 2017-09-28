@@ -64,7 +64,7 @@
         <activity android:name=".activity.RegisterAc" />
         <activity android:name=".activity.TestActivity" />
         <activity android:name=".activity.clearboom.ClearBoomActivity" />
-        <activity android:name=".AdviceActivity"></activity>
+        <activity android:name=".activity.AdviceActivity"></activity>
     </application>
 
 </manifest>

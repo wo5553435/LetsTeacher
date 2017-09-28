@@ -101,8 +101,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     ImageView tv_tip4;
     @BindView(R.id.fb_home_save)
     FloatingActionButton fab;
-    private View addview;
-
 
     View specialView;
 
@@ -180,21 +178,21 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                     if (specialView == null) specialView = view;
                     if (currentselect != -1)
                         layut_root.findViewById(R.id.root).setVisibility(View.VISIBLE);
-                    if (addview == null) addview = view;
-                    switchScene(addview, !isScene);
+                    if (specialView == null) specialView = view;
+                    switchScene(specialView, !isScene);
                     // startActivity(new Intent(activity, TestActivity.class));
 //                    ShapeFragment fragment=new ShapeFragment();
 //                    fragment.show(getActivity().getSupportFragmentManager(), "searchdialog");
                 } else {//打开操作
                     currentselect = position;
-                    if (isScene && addview != null) {
-                        switchScene(addview, !isScene);
+                    if (isScene && specialView != null) {
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
                                 gotoDetail(position, view);
                             }
                         }, 500);
+                        switchScene(specialView, !isScene);
                     } else {
                         gotoDetail(position, view);
                     }

@@ -53,7 +53,7 @@ abstract class KotlinActivity : Activity() {
      fun StringisInt(str:String):Int? {
          when (parseInt(str)) {
              1, 4 -> print("the value is zero or one")
-             else -> print("")
+             else -> print("no special value")
          }
         return parseInt(str)
      }

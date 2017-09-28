@@ -22,6 +22,7 @@ import com.example.sinner.letsteacher.utils.Logs;
 import com.example.sinner.letsteacher.utils.SuperToastUtil;
 import com.example.sinner.letsteacher.utils.bmob.BmobUtil;
 import com.example.sinner.letsteacher.utils.bmob.listener.data.BmobAddOrUpdateListener;
+import com.example.sinner.letsteacher.utils.share.ShareUtil;
 import com.pigcms.library.android.okhttp.HttpUtils;
 import com.pigcms.library.android.okhttp.callback.filecallback.MyFileRequestCallback;
 import com.pigcms.library.utils.ToastUtil;
@@ -129,13 +130,52 @@ public class ImgDetailActivity extends BasicActivity {
                 }
             }
         });
-//        tv_test.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
+        tv_test.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 //                Glide.with(activity).load(test_url).crossFade()
 //                        .into(img_test);
-//            }
-//        });
+                shareTo(images.get(banner.getCurrentItem()-1));
+            }
+        });
+    }
+    private void shareTo(String s){
+        showProgressDialog();
+        String [] ss=s.split("\\/");
+        HttpUtils.getInstance().downLoadFile(s, folderurl,ss[ss.length-1], new MyFileRequestCallback<File>() {
+            @Override
+            public void OnSuccess(final File file) {
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        hideProgressDialog();
+                        new ShareUtil(activity).shareMsg("ceshi1","ceshi2",file.getAbsolutePath());
+                        //SuperToastUtil.getInstance(activity).showToast("下载成功!保存到"+file.getAbsolutePath());
+                    }
+                });
+
+            }
+
+            @Override
+            public void onPogress(long total, long current) {
+
+            }
+
+            @Override
+            public void OnFail(String arg0, final String arg1) {
+
+                Logs.e(arg0,arg1);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        hideProgressDialog();
+                        SuperToastUtil.getInstance(activity).showToast("下载出错!:"+arg1);
+                    }
+                });
+
+            }
+        });
     }
 
     private void DownloadImg(String s) {

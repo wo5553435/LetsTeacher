@@ -4,8 +4,10 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RoundRectShape;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -19,7 +21,6 @@ import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.TabWidget;
-import android.widget.TextView;
 
 /**
  * A simple text label view that can be applied as a "badge" to any given {@link View}.
@@ -28,7 +29,7 @@ import android.widget.TextView;
  * badge.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
  * @author Jeff Gilfelt
  */
-public class BadgeView extends TextView {
+public class BadgeView extends AppCompatTextView {
 
 	public static final int POSITION_TOP_LEFT = 1;
 	public static final int POSITION_TOP_RIGHT = 2;
@@ -258,6 +259,7 @@ public class BadgeView extends TextView {
 				badgeBg = getDefaultBackground();
 			}
 			setBackgroundDrawable(badgeBg);
+//		    setBackgroundDrawable(getGdrawable());
 		}
 		applyLayoutParams();
 		
@@ -267,6 +269,9 @@ public class BadgeView extends TextView {
 		this.setVisibility(View.VISIBLE);
 		isShown = true;
 	}
+
+
+
 	
 	private void hide(boolean animate, Animation anim) {
 		this.setVisibility(View.GONE);
@@ -319,15 +324,27 @@ public class BadgeView extends TextView {
 	
 	private ShapeDrawable getDefaultBackground() {
 		
-		int r = dipToPixels(DEFAULT_CORNER_RADIUS_DIP);
+		int r = dipToPixels(12);
 		float[] outerR = new float[] {r, r, r, r, r, r, r, r};
-        
+
 		RoundRectShape rr = new RoundRectShape(outerR, null, null);
 		ShapeDrawable drawable = new ShapeDrawable(rr);
 		drawable.getPaint().setColor(badgeColor);
 		
 		return drawable;
 		
+	}
+
+	private GradientDrawable getGdrawable(){
+        int roundRadius = 15; // 8dp 圆角半径
+        int strokeColor = Color.parseColor("#2E3135");//边框颜色
+        int fillColor = Color.parseColor("#DFDFE0");//内部填充颜色
+
+        GradientDrawable gd = new GradientDrawable();//创建drawable
+        gd.setColor(fillColor);
+        gd.setCornerRadius(roundRadius);
+        gd.setStroke(15, strokeColor);
+		return gd;
 	}
 	
 	private void applyLayoutParams() {

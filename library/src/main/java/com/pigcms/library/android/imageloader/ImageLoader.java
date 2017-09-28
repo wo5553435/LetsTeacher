@@ -1,12 +1,10 @@
 package com.pigcms.library.android.imageloader;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
-import com.bumptech.glide.DrawableRequestBuilder;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
@@ -55,6 +53,7 @@ public class ImageLoader {
     }
 
 
+
     /**
      * 关于加载gif模式， 这个模式需要注意的是如果是自定义imageview可能无法实现gif效果，非要实现截取和变换 你可以自己编写回调的transform来定义
      * imageview的回调
@@ -62,48 +61,57 @@ public class ImageLoader {
      * @param isgif
      * @return
      */
-    public  ImageLoader SetParams(boolean isAnimate,boolean isgif){
+    public ImageLoader SetParams(boolean isAnimate, boolean isgif){
         this.isGif=isgif;this.isAnimate=isAnimate;
         return  this;
     }
 
 
+    public void displayImage( String downloadUrl, ImageView imageView){
+        displayImage(downloadUrl,imageView, R.drawable.icon);
+    }
 
 
     //默认无动画
-    public void displayImage(Context context, String downloadUrl, ImageView imageView) {
+    public void displayImage( String downloadUrl, ImageView imageView,int drawableid) {
         if (imageView instanceof ImageView) {//此控件为imageview
             Glide.with(imageView.getContext())
                     .load(downloadUrl)
-                    .crossFade(500)
-                    .error(R.drawable.icon)
+//                    .crossFade(500)
+                    .dontAnimate()
+                    .centerCrop()
+                    .error(drawableid==0? R.drawable.icon:drawableid)
+                    .placeholder(drawableid==0? R.drawable.icon:drawableid)
                     .into(imageView);
         } else {//此控件为封装imageview，封装view在直接显示上与占位图有冲突
             Glide.with(imageView.getContext())
                     .load(downloadUrl)
-                    .crossFade(500)
+                    //.crossFade(500)
                     .dontAnimate()
+                    .centerCrop()
                     .error(R.drawable.icon)
+                    .placeholder(R.drawable.icon)
                     .into(imageView);
         }
     }
 
 
-
     //有默认动画的方式
-    public void displayImage(Context context, String downloadUrl, ImageView imageView,int maxwidth,int maxheight ) {
+    public void displayImage(String downloadUrl, ImageView imageView,int maxwidth,int maxheight ) {
         if (imageView instanceof ImageView) {//此控件为imageview
             Glide.with(imageView.getContext())
                     .load(downloadUrl)
-                    .crossFade(500)
+//                    .crossFade(300)
+                    .dontAnimate()
                     .override(maxwidth,maxheight)
                     .error(R.drawable.icon)
                     .into(imageView);
         } else {//此控件为封装imageview，封装view在直接显示上与占位图有冲突
             Glide.with(imageView.getContext())
                     .load(downloadUrl)
-                    .crossFade(500)
                     .dontAnimate()
+//                    .crossFade(300)
+                    .override(maxwidth,maxheight)
                     .error(R.drawable.icon)
                     .into(imageView);
         }
@@ -121,11 +129,11 @@ public class ImageLoader {
     }
 
 
-    public void displayImage(Context context, String downloadUrl, final ImageView imageView, Bitmap bitmap) {
+    public void displayImage(Context context, String downloadUrl, final ImageView imageView, int drawableid) {
         if (imageView instanceof ImageView) {//此控件为imageview
-            ContextWith(context, false).load(downloadUrl).dontAnimate().into(imageView);
+            ContextWith(context, false).load(downloadUrl).dontAnimate().error(drawableid).placeholder(drawableid).into(imageView);
         } else {//此控件为封装imageview，封装view在直接显示上与占位图有冲突
-            ContextWith(context, false).load(downloadUrl).into(new SimpleTarget<GlideDrawable>() {
+            ContextWith(context, false).load(downloadUrl).error(drawableid).placeholder(drawableid).into(new SimpleTarget<GlideDrawable>() {
                 @Override
                 public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
                     imageView.setImageDrawable(resource.getCurrent());
@@ -135,22 +143,6 @@ public class ImageLoader {
     }
 
 
-    /**
-     * 兼容老版本图片下载请求
-     * @param uri
-     * @param imageView
-     */
-    public void displayImage(String uri, ImageView imageView){
-        if(ImageView.class.isInstance(imageView)){//如果直接是imageview可以用占位符
-
-        }else{//集成类都不能使用，不然第一次是出不来结果的
-
-        }
-    }
-
-    public void displayImage(String uri, ImageView imageView,boolean useholder){
-
-    }
 
     /**
      * 下载返回bitmap类型图片 （暂无返回拓展）

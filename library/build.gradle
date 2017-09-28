@@ -54,4 +54,6 @@ dependencies {
     compile 'com.github.hotchemi:permissionsdispatcher:2.4.0'
     apt 'com.github.hotchemi:permissionsdispatcher-processor:2.4.0'
 
+    //[1] 蛋疼哦 我写的东西除去http版本还是有点用的 bmob3.47以上就用到了rxjava1 但是我的东西大部分都是rx2写的
+    //所以http那块很多东西我都没写出来
 }

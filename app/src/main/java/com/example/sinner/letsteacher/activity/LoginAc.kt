@@ -26,6 +26,7 @@ import com.example.sinner.letsteacher.R
 
 import android.Manifest.permission.READ_CONTACTS
 import android.animation.ValueAnimator
+import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
 import android.graphics.drawable.Animatable
@@ -41,6 +42,7 @@ import android.view.ViewPropertyAnimator
 import android.view.ViewTreeObserver
 import android.view.animation.AnticipateOvershootInterpolator
 import android.view.animation.OvershootInterpolator
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import com.example.sinner.letsteacher.entity.LoginUserEntity
 import com.example.sinner.letsteacher.entity.UserVo
@@ -49,6 +51,7 @@ import com.example.sinner.letsteacher.utils.SpUtil
 import com.example.sinner.letsteacher.utils.SuperToastUtil
 import com.example.sinner.letsteacher.utils.bmob.BmobUtil
 import com.example.sinner.letsteacher.utils.bmob.listener.data.BmobQueryListener
+import com.example.sinner.letsteacher.utils.share.ShareUtil
 import kotlinx.android.synthetic.main.activity_login2.*;
 import java.util.*
 
@@ -80,7 +83,10 @@ class LoginAc : BasicActivity() {
 
 
     override fun initAction() {
-        sign_up.setOnClickListener { startActivity(Intent(this@LoginAc, RegisterAc::class.java)) }
+        sign_up.setOnClickListener {
+           // ShareUtil(activity).shareMsg("title","ceshi","")
+            startActivity(Intent(this@LoginAc, RegisterAc::class.java))
+        }
         login_btn_login.setOnClickListener {
             loginAction()
         }
@@ -187,6 +193,10 @@ class LoginAc : BasicActivity() {
         if (login_password.text.toString().length == 0) {
             SuperToastUtil.getInstance(activity).showToast("密码没输入~");return
         }
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm?.hideSoftInputFromWindow(window.decorView.windowToken,
+                0)
+
         changeBtnStatu(false);
     }
 

@@ -4,5 +4,64 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.sinner.letsteacher.AdviceActivity">
+    tools:context="com.example.sinner.letsteacher.activity.AdviceActivity">
+    <include layout="@layout/layout_title_blue"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_marginTop="@dimen/title_height">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:paddingLeft="12dp"
+            android:gravity="center_vertical"
+            android:text="请输入您的吐槽和建议"/>
+        <EditText
+            android:id="@+id/ed_advice_edit"
+            android:layout_marginTop="10dp"
+            android:gravity="left"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="120dp"
+            android:maxHeight="240dp"
+            android:background="@drawable/shape_textarea"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="right|center_vertical"
+            android:paddingRight="12dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="还可以输入"
+                />
+            <TextView
+                android:id="@+id/tv_advice_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="120"
+                android:paddingRight="4dp"
+                android:paddingLeft="4dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="个字"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_advice_commit"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginTop="20dp"
+            android:text="提 交"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:background="@drawable/circle_blue_bg" />
+    </LinearLayout>
 </RelativeLayout>
