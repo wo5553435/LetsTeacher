@@ -24,6 +24,8 @@
 
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -41,15 +43,15 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.RegisterActivity" />
-        <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.Main2Activity" />
-        <activity android:name=".activity.Main3Activity" />
+        <activity android:name=".activity.home.MainActivity" />
+        <activity android:name=".activity.home.Main2Activity" />
+        <activity android:name=".activity.home.Main3Activity" />
         <activity
             android:name=".activity.TableActivity"
             android:label="@string/title_activity_table" />
-        <activity android:name=".activity.LoginActivity" />
+        <activity android:name=".activity.login.LoginActivity" />
         <activity
-            android:name=".activity.HomeActivity"
+            android:name=".activity.home.HomeActivity"
             android:theme="@style/AppTheme.ExploreEx" />
         <activity android:name=".activity.AddNewFileMkdirs" />
         <activity android:name=".activity.SearchFileActivity" />
@@ -60,11 +62,12 @@
         <activity
             android:name=".LoginAc"
             android:label="@string/title_activity_login" />
-        <activity android:name=".activity.LoginAc" />
+        <activity android:name=".activity.login.LoginAc" />
         <activity android:name=".activity.RegisterAc" />
         <activity android:name=".activity.TestActivity" />
         <activity android:name=".activity.clearboom.ClearBoomActivity" />
-        <activity android:name=".activity.AdviceActivity"></activity>
+        <activity android:name=".activity.AdviceActivity" />
+        <activity android:name=".activity.camera.CameraActivity"></activity>
     </application>
 
 </manifest>

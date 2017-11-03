@@ -221,15 +221,15 @@ public class BmobUtil {
     /**
      * 获得单一指定数据的数据,通常是根据idtoken查
      */
-    public void queryDataByid(BmobObject objects,String id){
+    public void queryDataByid(BmobObject objects,String id,final BmobAddOrUpdateListener listener){
         BmobQuery<BmobObject> bmobQuery = new BmobQuery<BmobObject>();
         bmobQuery.getObject( id, new QueryListener<BmobObject>() {
             @Override
             public void done(BmobObject object,BmobException e) {
                 if(e==null){
-
+                    listener.OnSuccess("");
                 }else{
-
+                    listener.OnFail(e.getMessage());
                 }
             }
         });

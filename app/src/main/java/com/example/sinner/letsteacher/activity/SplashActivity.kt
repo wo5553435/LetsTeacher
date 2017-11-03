@@ -1,38 +1,25 @@
 package com.example.sinner.letsteacher.activity
 
 import android.animation.Animator
-import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Build
-import android.os.Bundle
 import android.os.Handler
 import android.support.annotation.RequiresApi
-import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.view.ViewCompat
 import android.support.v4.view.ViewPropertyAnimatorListener
 import android.support.v4.view.animation.FastOutSlowInInterpolator
-import android.util.Log
-import android.util.Pair
 import android.view.View
 import android.view.ViewAnimationUtils
-import android.view.Window
-import android.widget.ImageView
-import android.widget.RelativeLayout
-import android.widget.TextView
 
 import com.example.sinner.letsteacher.R
 import com.example.sinner.letsteacher.utils.SpUtil
 
-import java.util.ArrayList
-import java.util.concurrent.TimeUnit
-
-import butterknife.BindView
 import cn.bmob.v3.Bmob
 import cn.bmob.v3.BmobConfig
+import com.example.sinner.letsteacher.activity.home.HomeActivity
+import com.example.sinner.letsteacher.activity.login.LoginAc
 import com.example.sinner.letsteacher.entity.LoginUserEntity
 import com.example.sinner.letsteacher.utils.Logs
-import rx.Observable
-import rx.Subscriber
 import kotlinx.android.synthetic.main.layout_activity_splash.*
 
 /**

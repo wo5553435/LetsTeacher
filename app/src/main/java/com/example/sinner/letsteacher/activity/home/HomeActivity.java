@@ -1,4 +1,4 @@
-package com.example.sinner.letsteacher.activity;
+package com.example.sinner.letsteacher.activity.home;
 
 import android.content.Intent;
 import android.graphics.drawable.AnimatedVectorDrawable;
@@ -17,11 +17,17 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.sinner.letsteacher.R;
+import com.example.sinner.letsteacher.activity.AdviceActivity;
+import com.example.sinner.letsteacher.activity.BasicActivity;
+import com.example.sinner.letsteacher.activity.camera.CameraActivity;
+import com.example.sinner.letsteacher.activity.clearboom.ClearBoomActivity;
+import com.example.sinner.letsteacher.activity.login.LoginAc;
 import com.example.sinner.letsteacher.fragments.HomeFragment;
 import com.example.sinner.letsteacher.utils.SuperToastUtil;
 import com.github.johnpersano.supertoasts.SuperToast;
 
 import butterknife.BindView;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by win7 on 2017-06-13.
@@ -43,6 +49,10 @@ public class HomeActivity extends BasicActivity {
 
     @BindView(R.id.layout_minefragment_advice)
     RelativeLayout layout_advice;
+
+    @BindView(R.id.profile_image_menu)
+    CircleImageView img;
+
 
     HomeFragment homePageFragment;
     ActionBarDrawerToggle mDrawerToggle;
@@ -125,6 +135,15 @@ public class HomeActivity extends BasicActivity {
             }
 
 
+        });
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(activity,
+                      ClearBoomActivity.class
+                       // CameraActivity.class
+                ));
+            }
         });
     }
 

@@ -6,6 +6,7 @@ import com.pigcms.library.android.entify.BasicVo;
 
 import java.util.List;
 
+
 /**这是一个rvadapter比较工具，对于不是xrecyclerview封装的 wrapdaadapter可以适用，若出现addheaderview错位，你需要重写AdapterDataObserver调整position 你问为什么不重写Callback
  * Created by win7 on 2017-03-31. 主要针对有结构顺序模块的数据，特别是重新刷新小部分或单个数据更变的情形
  */

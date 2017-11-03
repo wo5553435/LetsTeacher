@@ -1,4 +1,4 @@
-package com.example.sinner.letsteacher.activity;
+package com.example.sinner.letsteacher.activity.home;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -9,13 +9,14 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPropertyAnimatorListener;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.example.sinner.letsteacher.R;
+import com.example.sinner.letsteacher.activity.SpacesItemDecoration;
+import com.example.sinner.letsteacher.activity.TableActivity;
 import com.example.sinner.letsteacher.adapter.TestAdapter;
 import com.example.sinner.letsteacher.utils.AnimatorUtil;
 import com.example.sinner.letsteacher.utils.file.FileUtils;

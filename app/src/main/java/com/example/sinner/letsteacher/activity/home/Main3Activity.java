@@ -1,4 +1,4 @@
-package com.example.sinner.letsteacher.activity;
+package com.example.sinner.letsteacher.activity.home;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;

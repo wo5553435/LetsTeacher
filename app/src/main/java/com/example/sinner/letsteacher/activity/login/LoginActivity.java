@@ -1,4 +1,4 @@
-package com.example.sinner.letsteacher.activity;
+package com.example.sinner.letsteacher.activity.login;
 
 
 import android.animation.Animator;
@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.sinner.letsteacher.R;
+import com.example.sinner.letsteacher.activity.BasicActivity;
 import com.example.sinner.letsteacher.utils.Logs;
 import com.polyak.iconswitch.IconSwitch;
 

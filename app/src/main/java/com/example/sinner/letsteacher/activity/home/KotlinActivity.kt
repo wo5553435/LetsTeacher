@@ -1,15 +1,12 @@
-package com.example.sinner.letsteacher.activity
+package com.example.sinner.letsteacher.activity.home
 
 import android.os.Bundle
 import android.app.Activity
-import android.view.View
-import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.Unbinder
 
 import com.example.sinner.letsteacher.R
 import com.example.sinner.letsteacher.utils.Logs
-import java.lang.Integer.parseInt
 
 abstract class KotlinActivity : Activity() {
 

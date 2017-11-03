@@ -1,57 +1,35 @@
-package com.example.sinner.letsteacher.activity
+package com.example.sinner.letsteacher.activity.login
 
 import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
-import android.annotation.TargetApi
-import android.content.pm.PackageManager
-import android.support.design.widget.Snackbar
-import android.app.Activity
-import android.app.LoaderManager.LoaderCallbacks
 
-import android.content.CursorLoader
-import android.content.Loader
-import android.database.Cursor
-import android.net.Uri
-import android.os.AsyncTask
-
-import android.os.Build
-import android.os.Bundle
-import android.provider.ContactsContract
-import android.text.TextUtils
-import android.view.KeyEvent
 import android.view.View
-import android.view.inputmethod.EditorInfo
 
 import com.example.sinner.letsteacher.R
 
-import android.Manifest.permission.READ_CONTACTS
 import android.animation.ValueAnimator
 import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
 import android.graphics.drawable.Animatable
-import android.graphics.drawable.Drawable
 import android.os.Handler
 import android.support.v4.view.ViewCompat
-import android.support.v4.view.ViewPropertyAnimatorListener
-import android.support.v4.view.ViewPropertyAnimatorUpdateListener
 import android.support.v4.view.animation.FastOutSlowInInterpolator
-import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.AppCompatImageView
 import android.view.View.*
-import android.view.ViewPropertyAnimator
-import android.view.ViewTreeObserver
 import android.view.animation.AnticipateOvershootInterpolator
-import android.view.animation.OvershootInterpolator
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import com.example.sinner.letsteacher.activity.BasicActivity
+import com.example.sinner.letsteacher.activity.home.HomeActivity
+import com.example.sinner.letsteacher.activity.RegisterAc
 import com.example.sinner.letsteacher.entity.LoginUserEntity
 import com.example.sinner.letsteacher.entity.UserVo
+import com.example.sinner.letsteacher.kotterknife.bindView
 import com.example.sinner.letsteacher.utils.Logs
 import com.example.sinner.letsteacher.utils.SpUtil
 import com.example.sinner.letsteacher.utils.SuperToastUtil
 import com.example.sinner.letsteacher.utils.bmob.BmobUtil
 import com.example.sinner.letsteacher.utils.bmob.listener.data.BmobQueryListener
-import com.example.sinner.letsteacher.utils.share.ShareUtil
 import kotlinx.android.synthetic.main.activity_login2.*;
 import java.util.*
 
@@ -63,6 +41,7 @@ class LoginAc : BasicActivity() {
     var params_width: Int = 0
     var params: LinearLayout.LayoutParams? = null
     var btn_login: Button? = null
+    val edit:EditText by bindView(R.id.login_username)
     override fun getContentLayout() = R.layout.activity_login2
 
     override fun initGui() {
@@ -76,8 +55,6 @@ class LoginAc : BasicActivity() {
         if (intent.hasExtra("clear")) {
             user = ""
         }
-     var a :List<Int> ?=null
-//        a?.sort()
     }
 
 

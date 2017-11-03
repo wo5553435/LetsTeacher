@@ -1,4 +1,4 @@
-package com.example.sinner.letsteacher.activity;
+package com.example.sinner.letsteacher.activity.home;
 
 import android.content.Intent;
 import android.os.Handler;
@@ -11,9 +11,9 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.widget.Toast;
 
 import com.example.sinner.letsteacher.R;
+import com.example.sinner.letsteacher.activity.SpacesItemDecoration;
 import com.example.sinner.letsteacher.adapter.TestAdapter;
 
 import butterknife.BindView;

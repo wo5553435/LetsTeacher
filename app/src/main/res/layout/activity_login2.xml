@@ -27,6 +27,7 @@
 
 
         <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/img_login_test"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:scaleType="centerInside"
