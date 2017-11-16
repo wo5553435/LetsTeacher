@@ -21,7 +21,6 @@
             android:layout_height="wrap_content"
             android:background="@color/menu_blue"
             android:padding="5dp">
-
         </android.support.v7.widget.RecyclerView>
 
         <android.support.v7.widget.AppCompatImageView

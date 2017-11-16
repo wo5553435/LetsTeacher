@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.sinner.letsteacher">
+    package="com.example.sinner.letsteacher"
+    android:versionCode="2"
+    android:versionName="1.0.1"
+    >
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -27,12 +30,17 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
-        android:name=".MyApplication"
+        android:name=".application.application.DefaultApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+
         android:supportsRtl="true"
         android:theme="@style/NoActionBar">
+        <meta-data
+            android:name="TINKER_ID"
+            android:value="tinker_id_100" />
+
         <activity
             android:name=".activity.SplashActivity"
             android:label="@string/app_name">
@@ -59,15 +67,18 @@
         <activity android:name=".activity.ShowNetPicActivity" />
         <activity android:name=".activity.CaptureActivity" />
         <activity android:name="com.jay.ui.PhotoPickerActivity" />
-        <activity
+        <!--
+            <activity
             android:name=".LoginAc"
             android:label="@string/title_activity_login" />
+        -->
         <activity android:name=".activity.login.LoginAc" />
         <activity android:name=".activity.RegisterAc" />
         <activity android:name=".activity.TestActivity" />
         <activity android:name=".activity.clearboom.ClearBoomActivity" />
         <activity android:name=".activity.AdviceActivity" />
-        <activity android:name=".activity.camera.CameraActivity"></activity>
+        <activity android:name=".activity.camera.CameraActivity" />
+        <activity android:name=".activity.TinkerActivity"></activity>
     </application>
 
 </manifest>

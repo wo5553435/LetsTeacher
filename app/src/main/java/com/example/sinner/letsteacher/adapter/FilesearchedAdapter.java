@@ -39,7 +39,6 @@ public class FilesearchedAdapter extends RecyclerView.Adapter<FilesearchedAdapte
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_item_searchfile, parent, false), onEventClick);
-
     }
 
 
@@ -58,8 +57,6 @@ public class FilesearchedAdapter extends RecyclerView.Adapter<FilesearchedAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, int position, List<Object> payloads) {
         if(!payloads.isEmpty()&&data!=null){
-
-
         }
         onBindViewHolder(holder,position);
         //super.onBindViewHolder(holder, position, payloads);
@@ -78,7 +75,8 @@ public class FilesearchedAdapter extends RecyclerView.Adapter<FilesearchedAdapte
     @Override
     public void onBindViewHolder (final ViewHolder holder, final int position){
         if(data!=null){
-            holder.tv_file_name.setText(data.get(position));
+            String[] strs=data.get(position).split("\\/");
+            holder.tv_file_name.setText(strs[strs.length-1]);
             Glide.with(holder.mContext).load(data.get(position)).override(100,100).into(holder.img_file);
              holder.img_select.setVisibility(isSelectMode?View.VISIBLE:View.GONE);
             holder.img_select.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

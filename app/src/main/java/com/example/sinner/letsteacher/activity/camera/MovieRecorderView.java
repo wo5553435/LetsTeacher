@@ -305,7 +305,7 @@ public class MovieRecorderView extends LinearLayout implements OnErrorListener {
                             Logs.e("onCompleted","----");
                             stop();
                             if (mOnRecordFinishListener != null)
-                                mOnRecordFinishListener.onRecordFinish();
+                                mOnRecordFinishListener.onRecordFinish(mRecordFile.getAbsolutePath());
                         }
 
                         @Override
@@ -405,7 +405,7 @@ public class MovieRecorderView extends LinearLayout implements OnErrorListener {
      * @date 2015-2-5
      */
     public interface OnRecordFinishListener {
-        public void onRecordFinish();
+        public void onRecordFinish(String url);
     }
 
     @Override

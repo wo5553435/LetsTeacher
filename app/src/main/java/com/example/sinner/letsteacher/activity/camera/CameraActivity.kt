@@ -34,12 +34,12 @@ class CameraActivity : BasicActivity() {
         btnStartStop.setOnTouchListener { view, motionEvent ->
             when (motionEvent.action) {
                 MotionEvent.ACTION_DOWN -> recordview.record(object : MovieRecorderView.OnRecordFinishListener {
-                    override fun onRecordFinish() {
-                        finishRecord()
+                    override fun onRecordFinish(fileurl:String) {
+                        finishRecord(fileurl)
                     }
                 })
                 MotionEvent.ACTION_UP ->{
-                    if(recordview.timeCount>10) finishRecord()
+                    if(recordview.timeCount>10) finishRecord("")
                     else{//不超过1秒的删除
                         if(recordview.getmRecordFile()!=null) recordview.getmRecordFile().delete()
                         recordview.stop()
@@ -52,8 +52,8 @@ class CameraActivity : BasicActivity() {
 
     }
 
-    fun finishRecord() {
-
+    fun finishRecord(url:String) {
+        finish()
     }
 
     override fun initData() {
@@ -82,6 +82,5 @@ class CameraActivity : BasicActivity() {
     }
 
     private fun getCurrenttimeFileurl(url: String) = url + "/" + System.currentTimeMillis() + ".3gp"
-
 
 }

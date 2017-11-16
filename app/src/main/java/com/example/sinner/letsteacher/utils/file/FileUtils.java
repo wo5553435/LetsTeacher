@@ -87,7 +87,7 @@ public class FileUtils {
             if (f.isFile()) {
 
                 for (int j = 0; j < Extension.length; j++) {
-                    if (f.getPath().substring(f.getPath().length() - Extension[j].length()).equals(Extension[j])) {  //判断扩展名
+                    if (f.getPath().substring(f.getPath().length() - Extension[j].length()).equalsIgnoreCase(Extension[j])) {  //判断扩展名
                         lstFile.add(f.getPath());
                         if (listener != null) listener.searchone(f.getPath());
                     }

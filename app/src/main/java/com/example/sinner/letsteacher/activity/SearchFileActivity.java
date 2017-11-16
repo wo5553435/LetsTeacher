@@ -2,6 +2,7 @@ package com.example.sinner.letsteacher.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Environment;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v7.widget.AppCompatImageView;
@@ -18,8 +19,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.sinner.letsteacher.R;
+import com.example.sinner.letsteacher.activity.camera.CameraActivity;
 import com.example.sinner.letsteacher.adapter.FilesearchedAdapter;
 import com.example.sinner.letsteacher.utils.file.FileUtils;
+import com.library.xrecyclerview.ProgressStyle;
+import com.library.xrecyclerview.XRecyclerView;
 import com.pigcms.library.utils.Logs;
 import com.pigcms.library.utils.ToastUtil;
 
@@ -47,7 +51,7 @@ import rx.schedulers.Schedulers;
 
 public class SearchFileActivity extends BasicActivity {
     @BindView(R.id.rv_searchfile_data)
-    RecyclerView rv_filedata;
+    XRecyclerView rv_filedata;
 
     @BindView(R.id.img_search_progress)
     AppCompatImageView img_progress;
@@ -57,6 +61,7 @@ public class SearchFileActivity extends BasicActivity {
 
     @BindView(R.id.title_lin_back)
     LinearLayout layout_back;
+
 
     AnimationSet animationSet;
     Animation closeanimation;
@@ -71,7 +76,13 @@ public class SearchFileActivity extends BasicActivity {
 
     @Override
     protected void initGui() {
-
+        tv_right.setText("录制");
+        tv_right.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(activity, CameraActivity.class));
+            }
+        });
     }
 
     @Override
@@ -84,6 +95,11 @@ public class SearchFileActivity extends BasicActivity {
 
 
     private void initRv() {
+        rv_filedata. setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
+        rv_filedata.setLaodingMoreProgressStyle(ProgressStyle.BallRotate);
+        rv_filedata.setArrowImageView(R.drawable.iconfont_downgrey);
+        rv_filedata.setPullRefreshEnabled(true);
+        rv_filedata.setLoadingMoreEnabled(false);
         rv_filedata.setLayoutManager(new LinearLayoutManager(activity,LinearLayoutManager.VERTICAL,false));
         adapter= new FilesearchedAdapter(Allfilepaths, new FilesearchedAdapter.OnEventClick() {
             @Override
@@ -91,7 +107,7 @@ public class SearchFileActivity extends BasicActivity {
                 if(adapter.isSelectMode()){
                     adapter.notifyItemChanged(position,1);
                 }else{
-                    ShowPicDetail(position);
+                    ShowPicDetail(Allfilepaths.get(position));
                 }
             }
 
@@ -158,6 +174,10 @@ public class SearchFileActivity extends BasicActivity {
 
     }
 
+    private void SearchMovie(){
+
+    }
+
     private void SearchFile() {
         Allfilepaths.clear();
         final String path = Environment.getExternalStorageDirectory().getAbsolutePath();
@@ -174,7 +194,7 @@ public class SearchFileActivity extends BasicActivity {
                     public void searchover() {
                         subscriber.onCompleted();
                     }
-                }).GetFiles(path, "png", "jpg");
+                }).GetFiles(path, "rmvb","avi","mp4","3gp"/*"png", "jpg"*/);
             }
         }).buffer(3)//一次性最多捆绑3个 这样影响查找速率   但是总比背压好 不影响GPu
          .zipWith(Observable.interval(200, TimeUnit.MILLISECONDS), new Func2<List<String>, Long, List<String>>() {//上游
@@ -211,16 +231,23 @@ public class SearchFileActivity extends BasicActivity {
         public void onNext(List<String> strings) {
             if (strings != null) {//衔接过渡动画 ，让用户能感觉在查找
                 Allfilepaths.addAll(strings);
+                if(Allfilepaths.size()!=strings.size())
                 adapter.notifyItemChanged(Allfilepaths.size()-strings.size());
+                else adapter.notifyDataSetChanged();
                 Log.e("item size", ""+ adapter.getItemCount());
             }
         }
     };
 
-    public void ShowPicDetail(int position){
-        Intent intent=new Intent(activity,ImgDetailActivity.class);
-        intent.putStringArrayListExtra("images",Allfilepaths);
-        intent.putExtra("point",position);
+    public void ShowPicDetail(String url){
+//        Intent intent=new Intent(activity,ImgDetailActivity.class);
+//        intent.putStringArrayListExtra("images",Allfilepaths);
+//        intent.putExtra("point",position);
+//        startActivity(intent);
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        String type = "video/mp4";
+        Uri uri = Uri.parse(url);
+        intent.setDataAndType(uri, type);
         startActivity(intent);
     }
 

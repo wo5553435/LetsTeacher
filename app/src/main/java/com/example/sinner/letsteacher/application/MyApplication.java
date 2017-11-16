@@ -1,4 +1,4 @@
-package com.example.sinner.letsteacher;
+package com.example.sinner.letsteacher.application;
 
 import android.app.Application;
 

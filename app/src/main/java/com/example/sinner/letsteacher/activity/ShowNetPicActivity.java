@@ -629,7 +629,7 @@ public class ShowNetPicActivity extends BasicActivity {
         adapter.notifyDataSetChanged();
 
         if (data != null) data.clear();
-        rv_filedata.ResetStatue(true);
+        //rv_filedata.ResetStatue(true);
         adapter.SetSelectMode(false);
         SearchFile(true);
     }

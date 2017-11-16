@@ -19,6 +19,8 @@ import android.widget.TextView;
 import com.example.sinner.letsteacher.R;
 import com.example.sinner.letsteacher.activity.AdviceActivity;
 import com.example.sinner.letsteacher.activity.BasicActivity;
+import com.example.sinner.letsteacher.activity.SearchFileActivity;
+import com.example.sinner.letsteacher.activity.TinkerActivity;
 import com.example.sinner.letsteacher.activity.camera.CameraActivity;
 import com.example.sinner.letsteacher.activity.clearboom.ClearBoomActivity;
 import com.example.sinner.letsteacher.activity.login.LoginAc;
@@ -27,6 +29,7 @@ import com.example.sinner.letsteacher.utils.SuperToastUtil;
 import com.github.johnpersano.supertoasts.SuperToast;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -52,6 +55,9 @@ public class HomeActivity extends BasicActivity {
 
     @BindView(R.id.profile_image_menu)
     CircleImageView img;
+
+    @BindView(R.id.layout_minefragment_search)
+    RelativeLayout layout_search;
 
 
     HomeFragment homePageFragment;
@@ -141,10 +147,20 @@ public class HomeActivity extends BasicActivity {
             public void onClick(View view) {
                 startActivity(new Intent(activity,
                       ClearBoomActivity.class
+                       // TinkerActivity.class
                        // CameraActivity.class
                 ));
             }
         });
+    }
+
+    @OnClick({R.id.layout_minefragment_search})
+    public void OnClickEvent(View view){
+        switch (view.getId()){
+            case R.id.layout_minefragment_search:
+                if(!isFastDoubleClick()) startActivity(new Intent(activity,SearchFileActivity.class));
+                break;
+        }
     }
 
     private void GotoAdvice() {

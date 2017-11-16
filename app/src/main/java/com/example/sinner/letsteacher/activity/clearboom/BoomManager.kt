@@ -23,19 +23,19 @@ class BoomManager(var context: Context) {
     var currentlevel = Levels.NORMAL
     var checkarray = LinkedBlockingQueue<BoomItem>()//需要检验的数组
     var checkedarray = LinkedBlockingQueue<BoomItem>()// 完成校验的数组
-    var isGameOver=false;
-    var knowdata=ArrayList<BoomItem>()//已经完成身份验证的数据组
+    var isGameOver = false;
+    var knowdata = ArrayList<BoomItem>()//已经完成身份验证的数据组
     var boomdata: ArrayList<BoomItem>? = null
 
     fun getrandomBoom() {
         allmap.clear()
         val xsize = currentlevel.xcount - 1
         val ysize = currentlevel.ycount - 1
-        var index=0
+        var index = 0
         for (x in 0..xsize) {
             for (y in 0..ysize) {
-                var location=Pair(x, y)
-                allmap.put(location, BoomItem(x, y, false,index).apply { isshow = false;local=location })
+                var location = Pair(x, y)
+                allmap.put(location, BoomItem(x, y, false, index).apply { isshow = false;local = location })
                 index++;
             }
         }
@@ -49,7 +49,6 @@ class BoomManager(var context: Context) {
             }
         }
     }
-
 
     /**
      * 计算有雷附近8个按钮的雷数
@@ -114,11 +113,11 @@ class BoomManager(var context: Context) {
         return boomdata
     }
 
-    fun reset(){
-        allmap.clear();allmap==null
-        boommap.clear();boomdata?.clear();boomdata=null
+    fun reset() {
+        allmap.clear();allmap == null
+        boommap.clear();boomdata?.clear();boomdata = null
         checkarray.clear();checkedarray.clear()
-        isGameOver=false
+        isGameOver = false
     }
 
     fun initBoomData() {
@@ -130,72 +129,75 @@ class BoomManager(var context: Context) {
     /**
      * 将一个点周围存在的点全推入栈
      */
-    fun pullPoint(point:BoomItem) {
+    fun pullPoint(point: BoomItem) {
         getRoundPoint(point.local).forEach {
             if (!checkedarray.contains(allmap.get(it))) {
-                Logs.e("不包含",""+it.first+"--"+it.second)
-                if(!checkarray.contains(allmap.get(it))&&!checkedarray.contains(allmap.get(it)))//只有当两边都没有他的时候加进去
+                if (!checkarray.contains(allmap.get(it)) && !checkedarray.contains(allmap.get(it)))//只有当两边都没有他的时候加进去
+                {   Logs.e("增加检查项","-"+allmap.get(it)?.x+"---"+allmap.get(it)?.y)
                     checkarray.offer(allmap.get(it))
+                }
 //                allmap.get(it)?.isshow = true
-            }else{
-                Logs.e("包含",""+it.first+"--"+it.second)
+            } else {
+                Logs.e("检查过了", "" + it.first + "--" + it.second)
             }
         }
     }
 
 
-    fun CheckBoom(boom:BoomItem,adapter:BoomAdapter):Boolean{
-        boom.isshow=true //
-        if(boom.isBoom){
-            boom.isclick=true
-            isGameOver =true
+    fun CheckBoom(boom: BoomItem, adapter: BoomAdapter): Boolean {
+        boom.isshow = true //
+        if (boom.isBoom) {
+            boom.isclick = true
+            isGameOver = true
             return true
         }
         checkarray.offer(allmap.get(boom.local))//请注意hash值 尽量用统一数据源
-        while (checkarray.peek()!=null){//队列中还有值时候继续
-            var temp=checkarray.poll()
-            checkpoint(temp)
-            if(adapter!==null)adapter.notifyItemChanged(temp.index)
+        while (checkarray.peek() != null) {//队列中还有值时候继续
+            var temp = checkarray.poll()
+            checkpoint(temp)//考虑到
+            if (adapter !== null) adapter.notifyItemChanged(temp.index)
         }
-        isGameOver=checkOver()
+        isGameOver = checkOver()
         return false
     }
+
     /**
      * 校验该模块是否是雷区
      */
-    fun CheckBoom(boom :BoomItem):Boolean {
-        boom.isshow=true //
-        if(boom.isBoom){
-            boom.isclick=true
-            isGameOver =true;
+    fun CheckBoom(boom: BoomItem): Boolean {
+        boom.isshow = true //
+        if (boom.isBoom) {
+            boom.isclick = true
+            isGameOver = true;
             return true;
         }
         checkarray.offer(allmap.get(boom.local))//请注意hash值 尽量用统一数据源
-        while (checkarray.peek()!=null){//队列中还有值时候继续
-            var temp=checkarray.poll()
+        while (checkarray.peek() != null) {//队列中还有值时候继续
+            var temp = checkarray.poll()
             checkpoint(temp)
         }
-        isGameOver=checkOver()
+        isGameOver = checkOver()
         return false;
     }
 
     /**
      * 将所有雷翻出来
      */
-    fun showAllBoom(adapter: BoomAdapter?){
-        boommap.values.forEach {  it.isshow=true;if(adapter!=null) adapter.notifyItemChanged(it.index) }
+    fun showAllBoom(adapter: BoomAdapter?) {
+        boommap.values.forEach { it.isshow = true;if (adapter != null) adapter.notifyItemChanged(it.index) }
 
     }
 
     /**
      * 检测某个点是否是可以展开周围八个点,如果为0则将周围点加入队列
      */
-    fun checkpoint(point:BoomItem) {
+    fun checkpoint(point: BoomItem) {
         if (point != null) {
             point?.isshow = true//翻开
             checkedarray.offer(allmap.get(point.local))
-            Logs.e("当前已经检查过的数据大小",""+checkedarray.size)
+            Logs.e("检查过" + "" + point.x + "------" + point.y, "当前已经检查过的数据大小" + checkedarray.size)
             if (getRoundBoom(point.local.first, point.local.second) == 0) {//安全点
+                Logs.e("周围为空", "准备扩散")
                 pullPoint(point)
             }
         }
@@ -204,15 +206,17 @@ class BoomManager(var context: Context) {
     /**
      * 检验是否完成游戏
      */
-    fun checkOver():Boolean= with(boommap){
-        for (item in values){ if(item.isshow==true) return true }
-        if(checkedarray.size==(currentlevel.xcount*currentlevel.ycount-currentlevel.boommax)) return true//完成全部构建
+    fun checkOver(): Boolean = with(boommap) {
+        for (item in values) {
+            if (item.isshow == true) return true
+        }
+        if (checkedarray.size == (currentlevel.xcount * currentlevel.ycount - currentlevel.boommax)) return true//完成全部构建
         false
     }
 
     fun getRoundPoint(point: Pair<Int, Int>): List<Pair<Int, Int>> {
-        return with(point) {
-            listOf(Pair(first - 1, second - 1), Pair(first, second - 1), Pair(first + 1, second - 1),
+        return with(point) {//考虑到和adapter的索引对应 这里的xy值是反的 不是xy轴
+            listOf(Pair(first - 1, second - 1), Pair(first-1, second ), Pair(first - 1, second + 1),
                     Pair(first, second - 1), Pair(first, second + 1)
                     , Pair(first + 1, second - 1), Pair(first + 1, second), Pair(first + 1, second + 1))
                     .filter { it.first >= 0 && it.second >= 0 && it.first < currentlevel.xcount && it.second < currentlevel.ycount }
@@ -244,7 +248,7 @@ class BoomManager(var context: Context) {
         VERYEASY(3, 5, 5), EASY(10, 8, 8), NORMAL(20, 10, 10), HARD(30, 15, 15)
     }
 
-    fun isOver()=isGameOver
+    fun isOver() = isGameOver
 
 }
 

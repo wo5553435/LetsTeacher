@@ -8,13 +8,10 @@ import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.example.sinner.letsteacher.MyApplication;
+import com.example.sinner.letsteacher.application.MyApplication;
 import com.example.sinner.letsteacher.R;
 import com.example.sinner.letsteacher.entity.ImageVo;
 import com.example.sinner.letsteacher.utils.AndroidUtils;
@@ -25,7 +22,6 @@ import com.example.sinner.letsteacher.utils.bmob.listener.data.BmobAddOrUpdateLi
 import com.example.sinner.letsteacher.utils.share.ShareUtil;
 import com.pigcms.library.android.okhttp.HttpUtils;
 import com.pigcms.library.android.okhttp.callback.filecallback.MyFileRequestCallback;
-import com.pigcms.library.utils.ToastUtil;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
